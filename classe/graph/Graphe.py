@@ -34,7 +34,7 @@ class Graph(IGraphe):
         cell = self.__get_cell_by_name(name)
         if cell is None:
             return None
-        return cell.get_node().get_name()
+        return cell.get_node()
 
     def get_nb_pages(self) -> int:
         return len(self.get_page_dict())
@@ -118,7 +118,8 @@ class Graph(IGraphe):
     si celle-ci est trouvée et None sinon.
     """
     def __get_cell_by_name(self, name: str) -> GraphCellule:
-        node_index = self.get_user_dict().get(name) or self.get_page_dict().get(name)
+        cell = self.get_user_dict().get(name) or self.get_page_dict().get(name)
+        node_index = self.__nodes.index(cell)
         if node_index is not None:
             return self.get_nodes()[node_index]
         return None
