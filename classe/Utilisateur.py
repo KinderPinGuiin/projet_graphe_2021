@@ -1,4 +1,4 @@
-from graph.Sommet import Sommet
+from classe.graph.Sommet import Sommet
 
 
 class Utilisateur(Sommet):
