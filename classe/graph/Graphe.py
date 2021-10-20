@@ -64,8 +64,10 @@ class Graph(IGraphe):
         return admins_names
 
     def get_increasing_name_nodes(self):
-        sorted_keys = sorted(self.__merge_keys(), key=str.lower)
-        return [self.get_node_by_name(x) for x in sorted_keys]
+        return self.__get_sorted_names_nodes()
+
+    def get_decreasing_name_nodes(self):
+        return self.__get_sorted_names_nodes(True)
 
     # Commandes
 
@@ -130,6 +132,15 @@ class Graph(IGraphe):
     """
     def __merge_keys(self):
         return list(self.__page_dict.keys()) + list(self.__user_dict.keys())
+
+    """
+    Renvoie la liste des sommets associés au graphe triés par nom de manière 
+    croissante si reverse vaut True, et de manière décroissante sinon.
+    """
+    def __get_sorted_names_nodes(self, reverse: bool = False) -> list[Sommet]:
+        sorted_keys = sorted(self.__merge_keys(), key=str.lower,
+                             reverse=reverse)
+        return [self.get_node_by_name(x) for x in sorted_keys]
 
     def __update_dict(self, index: int) -> None:
         # TODO
