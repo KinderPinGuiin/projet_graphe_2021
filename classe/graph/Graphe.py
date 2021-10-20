@@ -8,8 +8,8 @@ from classe.graph.GraphCellule import GraphCellule
 class Graph(IGraphe):
     def __init__(self):
         self.__nodes = list[GraphCellule]
-        self.__page_dict = dict([("Les colos de Bernard", Page("Les colos de Bernard"))])
-        self.__user_dict = dict([("Dupont", Utilisateur("Dupont", "Bernard", 56))])
+        self.__page_dict = dict()
+        self.__user_dict = dict()
 
     def nb_nodes(self) -> int:
         return len(self.__nodes)
@@ -30,10 +30,11 @@ class Graph(IGraphe):
         return self.__user_dict
 
     def get_node_by_name(self, name: str) -> Sommet:
-        node_index = self.get_user_dict().get(name) or self.get_page_dict().get(name)
-        if node_index is not None:
-            return self.get_nodes()[node_index].get_node()
-        return node_index
+        assert name is not None
+        cell = self.__get_cell_by_name(name)
+        if cell is None:
+            return None
+        return cell.get_node().get_name()
 
     def get_nb_pages(self) -> int:
         return len(self.get_page_dict())
@@ -47,14 +48,14 @@ class Graph(IGraphe):
 
     def get_avg_age(self):
         total = 0
-        for user in self.__user_dict.itervalues():
+        for user in self.__user_dict.values():
             total += user.get_age()
 
-        return int(total / self.__user_dict.length())
+        return int(total / len(self.__user_dict))
 
     def get_admins(self):
         admins_names = dict()
-        for page in self.__page_dict.itervalues():
+        for page in self.__page_dict.values():
             page_name = page.get_name()
             admins_names[page_name] = list[str]
             for user in page.get_admins():
@@ -84,7 +85,7 @@ class Graph(IGraphe):
                 self.get_user_dict()[node_name] = nodes.index(cell)
 
     def delete_node(self, node: Sommet) -> None:
-        assert node != None
+        assert node is not None
 
         nodes = self.get_nodes()
         node_name = node.get_name()
@@ -99,18 +100,53 @@ class Graph(IGraphe):
             del nodes[index]
             self.__update_dict(index)
 
-    def __update_dict(self, index: int) -> None:
-        # TODO
-        return None
+    def add_line(self, node1: Sommet, node2: Sommet) -> bool:
+        if not self.__check_2_nodes(node1, node2):
+            return False
+        self.__get_succ(node1).append(node2)
+        return True
+
+    def delete_line(self, node1: Sommet, node2: Sommet) -> bool:
+        if not self.__check_2_nodes(node1, node2):
+            return False
+        self.__get_succ(node1).remove(node2)
 
     # Outils
+
+    """
+    Renvoie la cellule correspondante au sommet de nom name. Renvoie la cellule
+    si celle-ci est trouvée et None sinon.
+    """
+    def __get_cell_by_name(self, name: str) -> GraphCellule:
+        node_index = self.get_user_dict().get(name) or self.get_page_dict().get(name)
+        if node_index is not None:
+            return self.get_nodes()[node_index]
+        return None
 
     """
     Renvoie la liste des clés du dictionnaire __page_dict fusionnée à la liste
     des clés de __user_dict.
     """
-
     def __merge_keys(self):
-        keys = self.__page_dict.keys()
-        keys.append(self.__user_dict.keys())
-        return keys
+        return list(self.__page_dict.keys()) + list(self.__user_dict.keys())
+
+    def __update_dict(self, index: int) -> None:
+        # TODO
+        return None
+
+    """
+    Teste l'existence de 2 noeuds dans le graphe et vérifie qu'ils ne sont pas
+    nuls. Arrête le programme si l'un des deux noeuds est nul, renvoie True si
+    les deux noeuds existent dans le graphe et False sinon.
+    """
+    def __check_2_nodes(self, node1: Sommet, node2: Sommet) -> bool:
+        assert node1 is not None and node2 is not None
+        if not self.is_node_in(node1) or not self.is_node_in(node2):
+            return False
+        return True
+
+    """
+    Renvoie les successeurs du sommet node.
+    """
+    def __get_succ(self, node: Sommet) -> list[Sommet]:
+        return self.__get_cell_by_name(node.get_name()).get_succ_list()

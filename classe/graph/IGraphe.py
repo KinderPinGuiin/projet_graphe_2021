@@ -76,8 +76,17 @@ class IGraphe:
     def add_node(self, node: Sommet) -> None:
         pass
 
-    def delete_line(self):
+    """
+    Supprime l'arête allant de node1 vers node2. Renvoie True en cas de succès,
+    renvoie False si une telle arête n'existait pas ou si node1 ou node2 
+    n'existe pas dans le graphe.
+    """
+    def delete_line(self, node1: Sommet, node2: Sommet) -> bool:
         pass
 
-    def add_line(self, node1: Sommet, node2: Sommet):
+    """
+    Ajoute une arrete de node1 vers node2. Retourne True en cas de succès,
+    retourne False si node1 ou node2 n'existe pas dans le graphe.
+    """
+    def add_line(self, node1: Sommet, node2: Sommet) -> bool:
         pass
