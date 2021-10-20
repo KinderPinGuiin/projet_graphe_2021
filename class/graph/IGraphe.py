@@ -31,7 +31,13 @@ class IGraphe:
     def get_lines(self):
         pass
 
-    def get_node_by_name(self, name: str):
+    def get_page_dict(self) -> dict:
+        pass
+    
+    def get_user_dict(self) -> dict:
+        pass
+
+    def get_node_by_name(self, name: str) -> Sommet:
         pass
 
     def get_nb_pages(self):
@@ -54,10 +60,10 @@ class IGraphe:
 
     # Commandes
 
-    def delete_node(self, name: str):
+    def delete_node(self, node: Sommet) -> None:
         pass
 
-    def add_node(self, name: str) -> Sommet:
+    def add_node(self, node: Sommet) -> None:
         pass
 
     def delete_line(self):
