@@ -20,16 +20,20 @@ class IGraphe:
     Renvoie la liste des noms de pages et des utilisateurs triée dans l'ordre
     croissant.
     """
-    def get_increasing_name_nodes(self) -> Sommet:
+    def get_increasing_name_nodes(self) -> list[Sommet]:
         pass
 
-    def get_decreasing_name_nodes(self) -> Sommet:
+    """
+    Renvoie la liste des noms de pages et des utilisateurs triée dans l'ordre
+    décroissant.
+    """
+    def get_decreasing_name_nodes(self) -> list[Sommet]:
         pass
 
-    def get_increasing_degree_nodes(self) -> Sommet:
+    def get_increasing_degree_nodes(self) -> list[Sommet]:
         pass
 
-    def get_decreasing_degree_nodes(self) -> Sommet:
+    def get_decreasing_degree_nodes(self) -> list[Sommet]:
         pass
 
     def get_lines(self):

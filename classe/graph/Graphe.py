@@ -1,3 +1,5 @@
+from typing import Callable, Union
+
 from classe.graph.Sommet import Sommet
 from classe.graph.IGraphe import IGraphe
 from classe.Utilisateur import Utilisateur
@@ -63,11 +65,17 @@ class Graph(IGraphe):
 
         return admins_names
 
-    def get_increasing_name_nodes(self):
-        return self.__get_sorted_names_nodes()
+    def get_increasing_name_nodes(self) -> list[Sommet]:
+        return self.__sort_nodes(lambda cell: cell.get_node().get_name())
 
-    def get_decreasing_name_nodes(self):
-        return self.__get_sorted_names_nodes(True)
+    def get_decreasing_name_nodes(self) -> list[Sommet]:
+        return self.__sort_nodes(lambda cell: cell.get_node().get_name(), True)
+
+    def get_increasing_degree_nodes(self) -> list[Sommet]:
+        return self.__sort_nodes(lambda cell: len(cell.get_succ_list()))
+
+    def get_decreasing_degree_nodes(self) -> list[Sommet]:
+        return self.__sort_nodes(lambda cell: len(cell.get_succ_list()), True)
 
     # Commandes
 
@@ -78,7 +86,7 @@ class Graph(IGraphe):
         node_name = node.get_name()
 
         if not self.is_node_in(node):
-            cell = GraphCellule(node, list[Sommet])
+            cell = GraphCellule(node, list[Sommet]())
             nodes.append(cell)
 
             if isinstance(node, Page):
@@ -102,16 +110,17 @@ class Graph(IGraphe):
             del nodes[index]
             self.__update_dict(index)
 
-    def add_line(self, node1: Sommet, node2: Sommet) -> bool:
+    def add_line(self, node1: str, node2: str) -> bool:
         if not self.__check_2_nodes(node1, node2):
             return False
-        self.__get_succ(node1).append(node2)
+        self.__get_succ_list(node1).append(self.get_node_by_name(node2))
         return True
 
-    def delete_line(self, node1: Sommet, node2: Sommet) -> bool:
+    def delete_line(self, node1: str, node2: str) -> bool:
         if not self.__check_2_nodes(node1, node2):
             return False
-        self.__get_succ(node1).remove(node2)
+        self.__get_succ_list(node1).remove(self.get_node_by_name(node2))
+        print("Liste succ :", self.__get_succ_list(node1))
 
     # Outils
 
@@ -127,20 +136,12 @@ class Graph(IGraphe):
         return None
 
     """
-    Renvoie la liste des clés du dictionnaire __page_dict fusionnée à la liste
-    des clés de __user_dict.
-    """
-    def __merge_keys(self):
-        return list(self.__page_dict.keys()) + list(self.__user_dict.keys())
-
-    """
     Renvoie la liste des sommets associés au graphe triés par nom de manière 
     croissante si reverse vaut True, et de manière décroissante sinon.
     """
-    def __get_sorted_names_nodes(self, reverse: bool = False) -> list[Sommet]:
-        sorted_keys = sorted(self.__merge_keys(), key=str.lower,
-                             reverse=reverse)
-        return [self.get_node_by_name(x) for x in sorted_keys]
+    def __sort_nodes(self, key: Callable, reverse: bool = False) -> list[Sommet]:
+        sorted_cells = sorted(self.__nodes, key=key, reverse=reverse)
+        return [cell.get_node() for cell in sorted_cells]
 
     def __update_dict(self, index: int) -> None:
         # TODO
@@ -151,14 +152,20 @@ class Graph(IGraphe):
     nuls. Arrête le programme si l'un des deux noeuds est nul, renvoie True si
     les deux noeuds existent dans le graphe et False sinon.
     """
-    def __check_2_nodes(self, node1: Sommet, node2: Sommet) -> bool:
-        assert node1 is not None and node2 is not None
+    def __check_2_nodes(self, node1_str: str, node2_str: str) -> bool:
+        assert node1_str is not None and node1_str is not None
+        node1 = self.get_node_by_name(node1_str)
+        node2 = self.get_node_by_name(node2_str)
         if not self.is_node_in(node1) or not self.is_node_in(node2):
             return False
         return True
 
     """
-    Renvoie les successeurs du sommet node.
+    Renvoie les successeurs du sommet node. Renvoie None si node n'a pas de
+    successeur.
     """
-    def __get_succ(self, node: Sommet) -> list[Sommet]:
-        return self.__get_cell_by_name(node.get_name()).get_succ_list()
+    def __get_succ_list(self, node: str) -> list[Sommet]:
+        cell = self.__get_cell_by_name(node)
+        if cell is None:
+            return None
+        return cell.get_succ_list()
