@@ -7,7 +7,7 @@ from classe.graph.GraphCellule import GraphCellule
 
 class Graph(IGraphe):
     def __init__(self):
-        self.__nodes = list[GraphCellule]
+        self.__nodes = list[GraphCellule]()
         self.__page_dict = dict()
         self.__user_dict = dict()
 

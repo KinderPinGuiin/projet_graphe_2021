@@ -3,7 +3,7 @@ from classe.graph.Sommet import Sommet
 
 class GraphCellule:
 
-    def __init__(self, s : Sommet, ls : list[Sommet]) -> None:
+    def __init__(self, s: Sommet, ls: list[Sommet]) -> None:
         self.__node = s
         self.__succ_list = ls
 
