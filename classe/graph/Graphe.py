@@ -48,8 +48,8 @@ class Graph(IGraphe):
 
     def get_avg_age(self):
         total = 0
-        for user in self.__user_dict.values():
-            total += user.get_age()
+        for cell in self.__user_dict.values():
+            total += cell.get_node().get_age()
 
         return int(total / len(self.__user_dict))
 
@@ -80,9 +80,9 @@ class Graph(IGraphe):
             nodes.append(cell)
 
             if isinstance(node, Page):
-                self.get_page_dict()[node_name] = nodes.index(cell)
+                self.get_page_dict()[node_name] = cell
             else:
-                self.get_user_dict()[node_name] = nodes.index(cell)
+                self.get_user_dict()[node_name] = cell
 
     def delete_node(self, node: Sommet) -> None:
         assert node is not None
