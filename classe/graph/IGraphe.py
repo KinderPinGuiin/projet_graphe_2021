@@ -1,6 +1,6 @@
 import fileinput
 
-from Sommet import Sommet
+from classe.graph.Sommet import Sommet
 
 
 class IGraphe:
@@ -16,6 +16,10 @@ class IGraphe:
     def get_nodes(self) -> Sommet:
         pass
 
+    """
+    Renvoie la liste des noms de pages et des utilisateurs triée dans l'ordre
+    croissant.
+    """
     def get_increasing_name_nodes(self) -> Sommet:
         pass
 
@@ -31,7 +35,13 @@ class IGraphe:
     def get_lines(self):
         pass
 
-    def get_node_by_name(self, name: str):
+    def get_page_dict(self) -> dict:
+        pass
+    
+    def get_user_dict(self) -> dict:
+        pass
+
+    def get_node_by_name(self, name: str) -> Sommet:
         pass
 
     def get_nb_pages(self):
@@ -40,9 +50,15 @@ class IGraphe:
     def get_nb_users(self):
         pass
 
+    """
+    Renvoie l'age moyen des utilisateurs arrondi à l'entier près.
+    """
     def get_avg_age(self):
         pass
 
+    """
+    Renvoie un dictionnaire associant chaque page à ces administrateurs.
+    """
     def get_admins(self):
         pass
 
@@ -54,10 +70,10 @@ class IGraphe:
 
     # Commandes
 
-    def delete_node(self, name: str):
+    def delete_node(self, node: Sommet) -> None:
         pass
 
-    def add_node(self, name: str) -> Sommet:
+    def add_node(self, node: Sommet) -> None:
         pass
 
     def delete_line(self):
