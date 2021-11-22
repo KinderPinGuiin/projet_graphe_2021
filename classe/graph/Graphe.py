@@ -2,7 +2,6 @@ from typing import Callable, Union
 
 from classe.graph.Sommet import Sommet
 from classe.graph.IGraphe import IGraphe
-from classe.Utilisateur import Utilisateur
 from classe.Page import Page
 from classe.graph.GraphCellule import GraphCellule
 
@@ -102,13 +101,12 @@ class Graph(IGraphe):
 
         if self.is_node_in(node):
             if isinstance(node, Page):
-                index = self.get_page_dict().get(node_name)
+                cell = self.get_page_dict().get(node_name)
                 del self.get_page_dict()[node_name]
             else:
-                index = self.get_user_dict().get(node_name)
+                cell = self.get_user_dict().get(node_name)
                 del self.get_user_dict()[node_name]
-            del nodes[index]
-            self.__update_dict(index)
+            del cell
 
     def add_line(self, node1: str, node2: str) -> bool:
         if not self.__check_2_nodes(node1, node2):
@@ -120,7 +118,6 @@ class Graph(IGraphe):
         if not self.__check_2_nodes(node1, node2):
             return False
         self.__get_succ_list(node1).remove(self.get_node_by_name(node2))
-        print("Liste succ :", self.__get_succ_list(node1))
 
     # Outils
 
@@ -154,11 +151,12 @@ class Graph(IGraphe):
     """
     def __check_2_nodes(self, node1_str: str, node2_str: str) -> bool:
         assert node1_str is not None and node1_str is not None
-        node1 = self.get_node_by_name(node1_str)
-        node2 = self.get_node_by_name(node2_str)
-        if not self.is_node_in(node1) or not self.is_node_in(node2):
-            return False
-        return True
+        if ((node1_str in self.__user_dict)
+            or (node1_str in self.__page_dict)) \
+                and ((node2_str in self.__user_dict)
+                     or (node2_str in self.__page_dict)):
+            return True
+        return False
 
     """
     Renvoie les successeurs du sommet node. Renvoie None si node n'a pas de
