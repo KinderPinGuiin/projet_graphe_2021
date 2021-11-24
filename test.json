@@ -1,0 +1,24 @@
+{
+    "Dupont": {
+        "type": "u",
+        "succ": [
+            "NARUTO FAN",
+            "Dupond"
+        ],
+        "firstname": "Bernard",
+        "age": 56
+    },
+    "Dupond": {
+        "type": "u",
+        "succ": [
+            "NARUTO FAN"
+        ],
+        "firstname": "Jean",
+        "age": 23
+    },
+    "NARUTO FAN": {
+        "type": "p",
+        "succ": [],
+        "admins": ["Dupont"]
+    }
+}
