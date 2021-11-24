@@ -1,5 +1,8 @@
+import fileinput
+import json
 from typing import Callable, Union
 
+from classe.Utilisateur import Utilisateur
 from classe.graph.Sommet import Sommet
 from classe.graph.IGraphe import IGraphe
 from classe.Page import Page
@@ -119,6 +122,27 @@ class Graph(IGraphe):
             return False
         self.__get_succ_list(node1).remove(self.get_node_by_name(node2))
 
+    def save_graph(self, name: str):
+        # Ouverture du fichier
+        file = open(name + ("" if name.endswith(".json") else ".json"), "w")
+        # Création du dictionnaire
+        graph_dict = self.__create_graph_dict()
+        # Parse le dict en JSON et l'écrit dans le fichier
+        file.write(json.dumps(graph_dict, indent=4))
+        file.close()
+
+    def load_graph(self, name: str):
+        # Reset le graphe
+        self.__nodes = list[GraphCellule]()
+        self.__page_dict = dict()
+        self.__user_dict = dict()
+        # Ouvre le fichier et parse le JSON
+        file = open(name + ("" if name.endswith(".json") else ".json"), "r")
+        graph_dict = json.loads(file.read())
+        # Re-créé le graphe
+        self.__create_graph_from_dict(graph_dict)
+        file.close()
+
     # Outils
 
     """
@@ -127,6 +151,8 @@ class Graph(IGraphe):
     """
     def __get_cell_by_name(self, name: str) -> GraphCellule:
         cell = self.get_user_dict().get(name) or self.get_page_dict().get(name)
+        if cell is None:
+            return None
         node_index = self.__nodes.index(cell)
         if node_index is not None:
             return self.get_nodes()[node_index]
@@ -167,3 +193,52 @@ class Graph(IGraphe):
         if cell is None:
             return None
         return cell.get_succ_list()
+
+    """
+    Créé un dictionnaire contenant toutes les infos du graphe.
+    """
+    def __create_graph_dict(self):
+        graph_dict = dict()
+        for cell in self.__nodes:
+            node = cell.get_node()
+            graph_dict[node.get_name()] = {
+                "type": "p" if isinstance(node, Page) else "u",
+                "succ": [succ.get_name() for succ in cell.get_succ_list()]
+            }
+            if isinstance(node, Page):
+                graph_dict[node.get_name()]["admins"] = \
+                    [admin.get_name() for admin in node.get_admins()]
+            else:
+                graph_dict[node.get_name()]["firstname"] = node.get_firstname()
+                graph_dict[node.get_name()]["age"] = node.get_age()
+        return graph_dict
+
+    """
+    Créé le graphe de l'instance courante via le dictionnaire graph_dict.
+    """
+    def __create_graph_from_dict(self, graph_dict: dict):
+        for node_name in graph_dict:
+            # Création du sommet s'il n'est pas déjà dans le graphe
+            if self.get_node_by_name(node_name) is None:
+                self.__create_dict_node(graph_dict, node_name)
+            # Création de ses arêtes
+            for succ in graph_dict[node_name]["succ"]:
+                # Si le successeur n'est pas dans le graphe on l'ajoute
+                if self.get_node_by_name(succ) is None:
+                    self.__create_dict_node(graph_dict, succ)
+                self.add_line(node_name, succ)
+
+    def __create_dict_node(self, graph_dict: dict, node_name: str):
+        if graph_dict[node_name]["type"] == "u":
+            user = Utilisateur(
+                node_name,
+                graph_dict[node_name]["firstname"],
+                graph_dict[node_name]["age"]
+            )
+            self.add_node(user)
+        else:
+            page = Page(
+                node_name,
+                graph_dict[node_name]["admins"]
+            )
+            self.add_node(page)

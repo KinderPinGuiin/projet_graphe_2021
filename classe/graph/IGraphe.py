@@ -66,7 +66,7 @@ class IGraphe:
     def get_admins(self):
         pass
 
-    def save_graph(self, name: str) -> fileinput:
+    def save_graph(self, name: str):
         pass
 
     def load_graph(self, name: str):
