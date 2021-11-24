@@ -13,4 +13,4 @@ test.add_line("NARUTO FAN", "Dupont")
 """
 
 test.load_graph("test")
-print([node.get_node().get_name() for node in test.get_nodes()], test.nb_lines())
+print([node.get_node().get_name() for node in test.get_nodes()], test.get_lines())

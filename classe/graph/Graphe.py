@@ -69,11 +69,14 @@ class Graph(IGraphe):
                 admins_names[page_name].append(user.get_name())
 
         return admins_names
+
     def get_lines(self):
-        result = [tuples()]
+        result = []
         for nodes_src in self.__nodes:
-            for nodes_dst in nodes_src.get_succ_list:
-                result.append(nodes_src.get_node.get_name, nodes_dst.get_node.get.name)
+            for nodes_dst in nodes_src.get_succ_list():
+                result.append(
+                    (nodes_src.get_node().get_name(),nodes_dst.get_name())
+                )
 
         return result
 
