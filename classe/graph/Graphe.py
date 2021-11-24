@@ -10,10 +10,13 @@ from classe.graph.GraphCellule import GraphCellule
 
 
 class Graph(IGraphe):
+    # Constructeur
     def __init__(self):
         self.__nodes = list[GraphCellule]()
         self.__page_dict = dict()
         self.__user_dict = dict()
+
+    # Requetes
 
     def nb_nodes(self) -> int:
         return len(self.__nodes)
@@ -66,6 +69,13 @@ class Graph(IGraphe):
                 admins_names[page_name].append(user.get_name())
 
         return admins_names
+    def get_lines(self):
+        result = [tuples()]
+        for nodes_src in self.__nodes:
+            for nodes_dst in nodes_src.get_succ_list:
+                result.append(nodes_src.get_node.get_name, nodes_dst.get_node.get.name)
+
+        return result
 
     def get_increasing_name_nodes(self) -> list[Sommet]:
         return self.__sort_nodes(lambda cell: cell.get_node().get_name())
@@ -159,7 +169,7 @@ class Graph(IGraphe):
         return None
 
     """
-    Renvoie la liste des sommets associés au graphe triés par nom de manière 
+    Renvoie la liste des sommets associés au graphe triés par nom de manière
     croissante si reverse vaut True, et de manière décroissante sinon.
     """
     def __sort_nodes(self, key: Callable, reverse: bool = False) -> list[Sommet]:
