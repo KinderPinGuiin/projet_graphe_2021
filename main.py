@@ -2,10 +2,11 @@ from classe.Page import Page
 from classe.Utilisateur import Utilisateur
 from classe.graph.Graphe import Graph
 
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import QMessageBox
 import sys
 from gui.gui import Ui_MainWindow
+import re
 
 class Ui(Ui_MainWindow):
     def __init__(self):
@@ -14,14 +15,14 @@ class Ui(Ui_MainWindow):
         self.show()
 
         self.adminFrame.hide()
-        self.signinButton.setEnabled(False)
+        self.createButton.setEnabled(False)
         
         self.__create_model()
         self.__update_ui()
         #self.signinButton.setText('&S\'inscrire')
         self.__create_controler()
         self.setWindowTitle('Projet Graphe 2021')
-        self.adminList.setSortingEnabled(False)
+        self.adminList.setSortingEnabled(True)
 
 
 
@@ -33,21 +34,33 @@ class Ui(Ui_MainWindow):
 
     def __create_controler(self):
 
-        self.nameEdit.textChanged.connect(self.__signin_enable)
-        self.firstnameEdit.textChanged.connect(self.__signin_enable)
-        self.adminList.itemSelectionChanged.connect(self.__signin_enable)
+        self.nameEdit.textChanged.connect(self.__create_enable)
+        self.firstnameEdit.textChanged.connect(self.__create_enable)
+        self.adminList.itemSelectionChanged.connect(self.__create_enable)
+        self.pageRadio.toggled.connect(self.__create_enable)
+        self.userRadio.toggled.connect(self.__create_enable)
 
-        self.signinButton.clicked.connect(self.__signin)
+        self.createButton.clicked.connect(self.__create)
+        
+        self.adminListSearch.textChanged.connect(self.__filter_amdinlist)
         
 
-    def __signin_enable(self):
+    def __create_enable(self):
         b = bool(self.nameEdit.text() and
                  ((self.userRadio.isChecked() and self.firstnameEdit.text()) or
                   (self.pageRadio.isChecked() and len(self.adminList.selectedItems()) > 0 )))
-        self.signinButton.setEnabled(b)
+        self.createButton.setEnabled(b)
 
     
-    def __signin(self):
+    def __filter_amdinlist(self):
+        for i in range (self.adminList.count()):
+            item = self.adminList.item(i)
+            pattern = self.adminListSearch.text()
+            string = item.text()
+            item.setHidden(re.match(pattern, string, re.IGNORECASE) == None)
+                
+
+    def __create(self):
         popup = QMessageBox()
 
         if self.model.get_node_by_name(self.nameEdit.text()) == None:
