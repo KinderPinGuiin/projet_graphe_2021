@@ -21,6 +21,7 @@ class Ui(Ui_MainWindow):
         #self.signinButton.setText('&S\'inscrire')
         self.__create_controler()
         self.setWindowTitle('Projet Graphe 2021')
+        self.adminList.setSortingEnabled(False)
 
 
 
@@ -89,6 +90,7 @@ class Ui(Ui_MainWindow):
     def __admins(self):
         print([item.text() for item in self.adminList.selectedItems()])
         #print(len(self.adminList.selectedItems()))
+
 
 ##########################################################################
 
