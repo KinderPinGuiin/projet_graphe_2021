@@ -29,7 +29,7 @@
       <x>30</x>
       <y>40</y>
       <width>271</width>
-      <height>431</height>
+      <height>451</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -111,9 +111,9 @@
        </widget>
       </item>
       <item row="7" column="0">
-       <widget class="QPushButton" name="signinButton">
+       <widget class="QPushButton" name="createButton">
         <property name="text">
-         <string>S'inscrire</string>
+         <string>Créer</string>
         </property>
        </widget>
       </item>
