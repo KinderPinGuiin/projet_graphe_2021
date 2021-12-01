@@ -3,7 +3,7 @@ from classe.graph.Sommet import Sommet
 
 class Utilisateur(Sommet):
     def __init__(self, lastname, firstname, age):
-        Sommet.__init__(self, lastname)
+        super().__init__(lastname)
         self.__firstname = firstname
         self.__age = age
 
