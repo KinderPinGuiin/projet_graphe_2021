@@ -2,10 +2,11 @@ from classe.Page import Page
 from classe.Utilisateur import Utilisateur
 from classe.graph.Graphe import Graph
 
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import QMessageBox
 import sys
 from gui.gui import Ui_MainWindow
+import re
 
 class Ui(Ui_MainWindow):
     def __init__(self):
@@ -38,6 +39,8 @@ class Ui(Ui_MainWindow):
         self.adminList.itemSelectionChanged.connect(self.__signin_enable)
 
         self.signinButton.clicked.connect(self.__signin)
+
+        self.adminListSearch.textChanged.connect(self.__filter_amdinlist)
         
 
     def __signin_enable(self):
@@ -47,6 +50,14 @@ class Ui(Ui_MainWindow):
         self.signinButton.setEnabled(b)
 
     
+    def __filter_amdinlist(self):
+        for i in range (self.adminList.count()):
+            item = self.adminList.item(i)
+            pattern = self.adminListSearch.text()
+            string = item.text()
+            item.setHidden(re.match(pattern, string, re.IGNORECASE) == None)
+                
+
     def __signin(self):
         popup = QMessageBox()
 
@@ -105,7 +116,7 @@ class Ui(Ui_MainWindow):
 
 
 if __name__ == "__main__":
-    sys.argv += ['--style', 'default']
+    sys.argv += ['--style', 'fusion']
     app = QtWidgets.QApplication(sys.argv)
     window = Ui()
     sys.exit(app.exec())
