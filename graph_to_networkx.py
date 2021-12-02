@@ -34,6 +34,16 @@ def graph_to_netX(G: Graph):
     return GX
 
 
+# Creation d'un fichier html de nom name contenant représentation du graphe G
+def create_graph_html(G: Graph, name: str):
+    filename = name + ("" if name.endswith(".html") else ".html")
+    # Initialisation du graphe pyvis oriente
+    graphepyvis = Network(directed=True)
+    # Tranformation de notre graphe en un graphe utilisable par pyvis
+    graphepyvis.from_nx(graph_to_netX(G))
+    graphepyvis.write_html(filename)
+
+
 # ------ Outils ------
 
 
@@ -101,12 +111,14 @@ test.add_line("Boucher", "Dupond")
 print(test.get_lines())
 print(test.get_nodes())
 
+create_graph_html(test, "graphe_temp.html")
+
 # print("Test display_attribute :")
 # print(display_attribute(test.get_node_by_name("Dupond")))
 
-graphnetx = nx.DiGraph()
-graphepyvis = Network(directed=True)
-graphepyvis.from_nx(graph_to_netX(test))
+# graphnetx = nx.DiGraph()
+# graphepyvis = Network(directed=True)
+# graphepyvis.from_nx(graph_to_netX(test))
 
-graphepyvis.write_html("graphe_temp.html")
+# graphepyvis.write_html("graphe_temp.html")
 # graphepyvis.show("test.html")
