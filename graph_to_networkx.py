@@ -19,19 +19,20 @@ def graph_to_netX(G: Graph):
                         firstname=nodes.get_node().get_firstname(),
                         lastname=nodes.get_node().get_name(),
                         fullname=get_fullname(nodes.get_node()),
-                        title=get_fullname(nodes.get_node()),
+                        title=display_attribute(nodes.get_node()),
                         age=nodes.get_node().get_age(),
                         type="Utilisateur")
         else:
             GX.add_node(nodes.get_node().get_name(),
                         name=nodes.get_node().get_name(),
-                        title=get_name_admin(nodes.get_node()),
+                        title=display_attribute(nodes.get_node()),
                         shape="box",
                         type="Page")
     # Ajout des noeuds
     GX.add_edges_from(G.get_lines())
 
     return GX
+
 
 # ------ Outils ------
 
@@ -48,8 +49,35 @@ def get_fullname(S: Sommet):
 def get_name_admin(page: Page):
     str = "Admin : </br>"
     for admin in page.get_admins():
-        str += admin.get_name() + "</br>"
+        str += "- " + admin.get_name() + "</br>"
     return str
+
+
+# Renvoie les attributs d'un sommet sous format html
+def display_attribute(S: Sommet):
+    if isinstance(S, Utilisateur):
+        attributes = get_fullname(S)
+        attributes += "</br>"
+        attributes += "---------- </br>"
+        attributes += "Nom : "
+        attributes += S.get_name()
+        attributes += "</br>"
+        attributes += "Prenom : "
+        attributes += S.get_firstname()
+        attributes += "</br>"
+        attributes += "Age : "
+        attributes += str(S.get_age())
+        attributes += "</br>"
+        return attributes
+    else:
+        attributes = get_fullname(S)
+        attributes += "</br>"
+        attributes += "---------- </br>"
+        attributes += "Nom : "
+        attributes += S.get_name()
+        attributes += "</br>"
+        attributes += get_name_admin(S)
+        return attributes
 
 
 # ------ Partie de test (temp) ------
@@ -73,9 +101,10 @@ test.add_line("Boucher", "Dupond")
 print(test.get_lines())
 print(test.get_nodes())
 
+# print("Test display_attribute :")
+# print(display_attribute(test.get_node_by_name("Dupond")))
 
 graphnetx = nx.DiGraph()
-print(type(graphnetx))
 graphepyvis = Network(directed=True)
 graphepyvis.from_nx(graph_to_netX(test))
 
