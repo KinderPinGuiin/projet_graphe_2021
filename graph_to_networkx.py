@@ -21,6 +21,7 @@ def graph_to_netX(G: Graph):
                         fullname=get_fullname(nodes.get_node()),
                         title=display_attribute(nodes.get_node()),
                         age=nodes.get_node().get_age(),
+                        value=len(nodes.get_succ_list()),
                         type="Utilisateur")
         else:
             GX.add_node(nodes.get_node().get_name(),
