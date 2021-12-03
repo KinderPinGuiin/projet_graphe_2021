@@ -50,22 +50,54 @@
        <x>50</x>
        <y>10</y>
        <width>161</width>
-       <height>424</height>
+       <height>431</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QGroupBox" name="verticalGroupBox">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QRadioButton" name="userRadio">
+           <property name="text">
+            <string>Utilisateur</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="pageRadio">
+           <property name="text">
+            <string>Page</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
       <item row="4" column="0">
        <widget class="QFrame" name="ageFrame">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>57</height>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>63</height>
+          <height>16777215</height>
          </size>
         </property>
         <layout class="QVBoxLayout" name="ageLayout">
@@ -90,7 +122,7 @@
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>24</height>
+             <height>16777215</height>
             </size>
            </property>
            <property name="showGroupSeparator" stdset="0">
@@ -104,42 +136,6 @@
            </property>
            <property name="displayIntegerBase">
             <number>10</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QPushButton" name="createButton">
-        <property name="text">
-         <string>Créer</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QGroupBox" name="verticalGroupBox">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>67</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="userRadio">
-           <property name="text">
-            <string>Utilisateur</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="pageRadio">
-           <property name="text">
-            <string>Page</string>
            </property>
           </widget>
          </item>
@@ -276,62 +272,18 @@
         </layout>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QFrame" name="nameFrame">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>64</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="nameLayout">
-         <item>
-          <widget class="QLabel" name="nameLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Nom</string>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="nameEdit">
-           <property name="maxLength">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QWidget" name="widget" native="true"/>
-      </item>
       <item row="3" column="0">
        <widget class="QFrame" name="firstnameFrame">
         <property name="minimumSize">
          <size>
           <width>0</width>
-          <height>56</height>
+          <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>63</height>
+          <height>16777215</height>
          </size>
         </property>
         <layout class="QVBoxLayout" name="firstnameLayout">
@@ -361,6 +313,57 @@
         </layout>
        </widget>
       </item>
+      <item row="7" column="0">
+       <widget class="QPushButton" name="createButton">
+        <property name="text">
+         <string>Créer</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QWidget" name="widget" native="true"/>
+      </item>
+      <item row="1" column="0">
+       <widget class="QFrame" name="nameFrame">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <layout class="QVBoxLayout" name="nameLayout">
+         <item>
+          <widget class="QLabel" name="nameLabel">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Nom</string>
+           </property>
+           <property name="margin">
+            <number>0</number>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="nameEdit">
+           <property name="maxLength">
+            <number>20</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
      </layout>
     </widget>
    </widget>
@@ -371,7 +374,7 @@
      <x>0</x>
      <y>0</y>
      <width>739</width>
-     <height>20</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>

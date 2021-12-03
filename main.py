@@ -118,7 +118,6 @@ class Ui(Ui_MainWindow):
 
 
 if __name__ == "__main__":
-    sys.argv += ['--style', 'default']
     app = QtWidgets.QApplication(sys.argv)
     window = Ui()
     sys.exit(app.exec())
