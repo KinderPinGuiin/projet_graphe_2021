@@ -1,7 +1,16 @@
 from classe.Page import Page
 from classe.Utilisateur import Utilisateur
 from classe.graph.Graphe import Graph
+import time
 
+start_time = time.perf_counter()
+test = Graph()
+test.load_graph("test")
+print(test.page_rank())
+
+# print([node.get_node().get_name() for node in test.get_nodes()], test.get_lines())
+# print("--- " + str(time.perf_counter() - start_time) + " seconds ---")
+=======
 from PyQt5 import QtWidgets, uic, QtCore
 from PyQt5.QtWidgets import QMessageBox
 import sys
@@ -131,5 +140,3 @@ test.add_line("Dupont", "NARUTO FAN")
 test.add_line("Dupont", "Dupond")
 test.add_line("NARUTO FAN", "Dupont")
 """
-
-
