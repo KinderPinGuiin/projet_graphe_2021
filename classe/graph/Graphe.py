@@ -165,10 +165,31 @@ class Graph(IGraphe):
             for node in page_rank:
                 u_sum = 0
                 for u in self.__incoming_neighbour(node):
-                    u_sum += page_rank[u] / self.__page_rank_degree(node)
+                    u_sum += page_rank[u] / self.__page_rank_degree(u)
                 page_rank[node] = (0.15 / self.nb_nodes()) + 0.85 * u_sum
                 i += 1
         return page_rank
+
+    def shortest_distance(self, s: str):
+        dist = dict()
+        for node in (self.__page_dict | self.__user_dict):
+            dist[node] = 1000000
+        dist[s] = 0
+        p = [node.get_node().get_name() for node in self.get_nodes()]
+        while len(p) > 0:
+            min = 1000000
+            u = ""
+            for node in p:
+                if dist[node] <= min:
+                    min = dist[node]
+                    u = node
+            p.remove(u)
+            for v in self.__incoming_neighbour(u):
+                alt = dist[u] + 1
+                if alt <= dist[v]:
+                    dist[v] = alt
+        return dist
+
 
     # Outils
 
@@ -299,4 +320,15 @@ class Graph(IGraphe):
     def __incoming_neighbour(self, node_name: str) -> list[str]:
         cell = self.__get_cell_by_name(node_name)
         return [node.get_name() for node in cell.get_succ_list()]
+
+    """
+    Renvoie l'ensemble des noms des voisins sortants du noeud de nom node_name
+    """
+    def __outgoing_neighbour(self, node_name: str) -> list[str]:
+        out_neighbours = []
+        for cell in self.__nodes:
+            for node in cell.get_succ_list():
+                if node.get_name() == node_name:
+                    out_neighbours.append(cell.get_node().get_name())
+        return out_neighbours
 
