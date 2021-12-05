@@ -914,9 +914,17 @@
      <x>0</x>
      <y>0</y>
      <width>969</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionSauvegarder"/>
+    <addaction name="actionCharger"/>
+   </widget>
+   <addaction name="menuFichier"/>
   </widget>
   <action name="actionCharger_un_graphe">
    <property name="text">
@@ -931,6 +939,16 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder">
+   <property name="text">
+    <string>Sauvegarder...</string>
+   </property>
+  </action>
+  <action name="actionCharger">
+   <property name="text">
+    <string>Charger...</string>
    </property>
   </action>
  </widget>

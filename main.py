@@ -4,7 +4,7 @@ from classe.Utilisateur import Utilisateur
 from classe.graph.Graphe import Graph
 
 from PyQt5 import QtWidgets, uic, QtCore
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QFileDialog, QMessageBox
 import sys
 from gui.gui import Ui_MainWindow
 import re
@@ -39,9 +39,6 @@ class Ui(Ui_MainWindow):
 
     def __create_model(self):
         self.model = Graph()
-        self.model.load_graph("test")
-        #print([node.get_node().get_name() for node in self.model.get_nodes()], self.model.get_lines())
-
 
     def __create_controler(self):
 
@@ -62,6 +59,9 @@ class Ui(Ui_MainWindow):
         self.nodesSortCombo.activated.connect(self.__display_nodesList)
         
         self.adminListSearch.textChanged.connect(self.__filter_amdinlist)
+
+        # Barre de menu
+        self.actionCharger.triggered.connect(self.__open_save_popup)
         
 
     def __create_enable(self):
@@ -240,7 +240,20 @@ class Ui(Ui_MainWindow):
         popup.exec_()
         self.__user_details_setup()
         self.__display_linesList()
-
+    
+    def __open_save_popup(self):
+        file = QFileDialog.getOpenFileName(self, "Charger un graphe", filter="JSON (*.json)")
+        if file[0].endswith(".json"):
+            self.model.load_graph(file[0])
+            self.__update_ui()
+        elif not file[0] == "":
+            msg = QMessageBox()
+            msg.setWindowTitle("Erreur")
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Veuillez sélectionner un fichier .json")
+            msg.exec_()
+            
+        
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
