@@ -124,6 +124,8 @@ class Graph(IGraphe):
             del self.__nodes[self.__nodes.index(cell)]
 
     def add_line(self, node1: str, node2: str) -> bool:
+        if node2 in self.__get_succ_list(node1):
+            return False
         if not self.__check_2_nodes(node1, node2):
             return False
         self.__get_succ_list(node1).append(self.get_node_by_name(node2))
