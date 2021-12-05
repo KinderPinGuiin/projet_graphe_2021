@@ -61,7 +61,8 @@ class Ui(Ui_MainWindow):
         self.adminListSearch.textChanged.connect(self.__filter_amdinlist)
 
         # Barre de menu
-        self.actionCharger.triggered.connect(self.__open_save_popup)
+        self.actionCharger.triggered.connect(self.__handle_load)
+        self.actionSauvegarder.triggered.connect(self.__handle_save)
         
 
     def __create_enable(self):
@@ -238,10 +239,9 @@ class Ui(Ui_MainWindow):
             popup.setText("La création de l'arc " + src + " vers " + dst + " a échouée.")
             popup.setIcon(QMessageBox.Critical)
         popup.exec_()
-        self.__user_details_setup()
-        self.__display_linesList()
+        self.__update_ui()
     
-    def __open_save_popup(self):
+    def __handle_load(self):
         file = QFileDialog.getOpenFileName(self, "Charger un graphe", filter="JSON (*.json)")
         if file[0].endswith(".json"):
             self.model.load_graph(file[0])
@@ -252,7 +252,12 @@ class Ui(Ui_MainWindow):
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Veuillez sélectionner un fichier .json")
             msg.exec_()
-            
+    
+    def __handle_save(self):
+        file = QFileDialog()
+        file.setAcceptMode(QFileDialog.AcceptSave)
+        if file.exec_():
+            self.model.save_graph(file.selectedFiles()[0])
         
 
 if __name__ == "__main__":
