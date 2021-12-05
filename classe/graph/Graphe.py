@@ -58,17 +58,18 @@ class Graph(IGraphe):
         for cell in self.__user_dict.values():
             total += cell.get_node().get_age()
 
-        return int(total / len(self.__user_dict))
+        return 0 if total == 0 else int(total / len(self.__user_dict))
 
     def get_admins(self):
         admins_names = dict()
         for page in self.__page_dict.values():
-            page_name = page.get_name()
-            admins_names[page_name] = list[str]
-            for user in page.get_admins():
-                admins_names[page_name].append(user.get_name())
+            page_name = page.get_node().get_name()
+            admins_names[page_name] = list[str]()
+            for user in page.get_node().get_admins():
+                admins_names[page_name].append(user)
 
         return admins_names
+
 
     def get_lines(self):
         result = []
@@ -122,7 +123,7 @@ class Graph(IGraphe):
             else:
                 cell = self.get_user_dict().get(node_name)
                 del self.get_user_dict()[node_name]
-            del cell
+            del self.__nodes[self.__nodes.index(cell)]
 
     def add_line(self, node1: str, node2: str) -> bool:
         if not self.__check_2_nodes(node1, node2):
