@@ -6,15 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>739</width>
-    <height>542</height>
+    <width>969</width>
+    <height>747</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>871</width>
+    <height>633</height>
+   </size>
   </property>
   <property name="mouseTracking">
    <bool>false</bool>
   </property>
   <property name="windowTitle">
-   <string>Test Projet Graphe</string>
+   <string>Projet Graphe 2021</string>
   </property>
   <property name="autoFillBackground">
    <bool>false</bool>
@@ -22,375 +28,942 @@
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
   </property>
+  <property name="unifiedTitleAndToolBarOnMac">
+   <bool>true</bool>
+  </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>271</width>
-      <height>451</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="title">
-     <string/>
-    </property>
-    <property name="flat">
-     <bool>false</bool>
-    </property>
-    <property name="checkable">
-     <bool>false</bool>
-    </property>
-    <widget class="QWidget" name="gridLayoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>10</y>
-       <width>161</width>
-       <height>424</height>
-      </rect>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="4" column="0">
-       <widget class="QFrame" name="ageFrame">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>57</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>63</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="ageLayout">
-         <item>
-          <widget class="QLabel" name="ageLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Age</string>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QSpinBox" name="ageBox">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>24</height>
-            </size>
-           </property>
-           <property name="showGroupSeparator" stdset="0">
-            <bool>false</bool>
-           </property>
-           <property name="minimum">
-            <number>1</number>
-           </property>
-           <property name="singleStep">
-            <number>1</number>
-           </property>
-           <property name="displayIntegerBase">
-            <number>10</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="7" column="0">
-       <widget class="QPushButton" name="createButton">
-        <property name="text">
-         <string>Créer</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QGroupBox" name="verticalGroupBox">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>67</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout">
-         <item>
-          <widget class="QRadioButton" name="userRadio">
-           <property name="text">
-            <string>Utilisateur</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QRadioButton" name="pageRadio">
-           <property name="text">
-            <string>Page</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QFrame" name="adminFrame">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>103</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="adminLayout">
-         <item>
-          <widget class="QLabel" name="adminLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Admins</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-           </property>
-           <property name="margin">
-            <number>5</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,0">
+    <item>
+     <widget class="QGroupBox" name="gridGroupBox">
+      <property name="maximumSize">
+       <size>
+        <width>193</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,0,0,0,4,2,0">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="verticalGroupBox">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QRadioButton" name="userRadio">
+            <property name="text">
+             <string>Utilisateur</string>
+            </property>
+            <property name="checked">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QRadioButton" name="pageRadio">
+            <property name="text">
+             <string>Page</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QFrame" name="ageFrame">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="ageLayout">
+          <item>
+           <widget class="QLabel" name="ageLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Age</string>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="ageBox">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="showGroupSeparator" stdset="0">
+             <bool>false</bool>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="singleStep">
+             <number>1</number>
+            </property>
+            <property name="displayIntegerBase">
+             <number>10</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QFrame" name="adminFrame">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>103</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="adminLayout">
+          <item>
+           <widget class="QLabel" name="adminLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Admins</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+            </property>
+            <property name="margin">
+             <number>5</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_2">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLineEdit" name="adminListSearch">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="frame">
+               <bool>false</bool>
+              </property>
+              <property name="placeholderText">
+               <string>Filtrer ...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="adminList">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>16777215</height>
+               </size>
+              </property>
+              <property name="dragEnabled">
+               <bool>false</bool>
+              </property>
+              <property name="dragDropOverwriteMode">
+               <bool>false</bool>
+              </property>
+              <property name="alternatingRowColors">
+               <bool>false</bool>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::MultiSelection</enum>
+              </property>
+              <property name="movement">
+               <enum>QListView::Static</enum>
+              </property>
+              <property name="layoutMode">
+               <enum>QListView::SinglePass</enum>
+              </property>
+              <property name="viewMode">
+               <enum>QListView::ListMode</enum>
+              </property>
+              <property name="uniformItemSizes">
+               <bool>false</bool>
+              </property>
+              <property name="wordWrap">
+               <bool>false</bool>
+              </property>
+              <property name="selectionRectVisible">
+               <bool>true</bool>
+              </property>
+              <property name="sortingEnabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QFrame" name="firstnameFrame">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="firstnameLayout">
+          <item>
+           <widget class="QLabel" name="firstnameLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Prénom</string>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="firstnameEdit">
+            <property name="maxLength">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QPushButton" name="createButton">
+         <property name="text">
+          <string>Créer</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QWidget" name="widget" native="true"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QFrame" name="nameFrame">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="nameLayout">
+          <item>
+           <widget class="QLabel" name="nameLabel">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>Nom</string>
+            </property>
+            <property name="margin">
+             <number>0</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="nameEdit">
+            <property name="maxLength">
+             <number>20</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="graphTab">
+       <attribute name="title">
+        <string>Graphe</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,2">
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="verticalGroupBox_2">
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Arcs</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
            <property name="spacing">
             <number>0</number>
            </property>
+           <property name="leftMargin">
+            <number>1</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>1</number>
+           </property>
+           <property name="bottomMargin">
+            <number>1</number>
+           </property>
            <item>
-            <widget class="QLineEdit" name="adminListSearch">
+            <widget class="QFrame" name="gridFrame_3">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>20</height>
+               <height>40</height>
               </size>
              </property>
-             <property name="frame">
-              <bool>false</bool>
-             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Nombre: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSpinBox" name="lineNbBox">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::NoButtons</enum>
+                </property>
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
-            <widget class="QListWidget" name="adminList">
+            <widget class="QListWidget" name="linesList">
+             <property name="selectionMode">
+              <enum>QAbstractItemView::NoSelection</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="verticalGroupBox">
+          <property name="maximumSize">
+           <size>
+            <width>250</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Sommets</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_3">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>1</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>1</number>
+           </property>
+           <property name="bottomMargin">
+            <number>1</number>
+           </property>
+           <item>
+            <widget class="QFrame" name="gridFrame_2">
              <property name="maximumSize">
               <size>
                <width>16777215</width>
-               <height>16777215</height>
+               <height>40</height>
               </size>
              </property>
-             <property name="dragEnabled">
-              <bool>false</bool>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Nombre: </string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QSpinBox" name="nodeNbBox">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::NoButtons</enum>
+                </property>
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <property name="spacing">
+              <number>0</number>
              </property>
-             <property name="dragDropOverwriteMode">
-              <bool>false</bool>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>false</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::MultiSelection</enum>
-             </property>
-             <property name="movement">
-              <enum>QListView::Static</enum>
-             </property>
-             <property name="layoutMode">
-              <enum>QListView::SinglePass</enum>
-             </property>
-             <property name="viewMode">
-              <enum>QListView::ListMode</enum>
-             </property>
-             <property name="uniformItemSizes">
-              <bool>false</bool>
-             </property>
-             <property name="wordWrap">
-              <bool>false</bool>
-             </property>
-             <property name="selectionRectVisible">
+             <item>
+              <widget class="QComboBox" name="nodesSortCombo">
+               <item>
+                <property name="text">
+                 <string>-- Trier par --</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Nom croissant</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Nom décroissant</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Degré croissant</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Degré décroissant</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QListWidget" name="nodesList">
+               <property name="selectionMode">
+                <enum>QAbstractItemView::NoSelection</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string/>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="usersTab">
+       <attribute name="title">
+        <string>Utilisateurs</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_6" rowstretch="1,1,3,0" columnstretch="1,4">
+        <item row="2" column="0">
+         <widget class="QWidget" name="widget_4" native="true">
+          <property name="maximumSize">
+           <size>
+            <width>190</width>
+            <height>16777215</height>
+           </size>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QPushButton" name="deleteNodeButton">
+          <property name="maximumSize">
+           <size>
+            <width>190</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Supprimer</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0" alignment="Qt::AlignVCenter">
+         <widget class="QGroupBox" name="gridGroupBox_2">
+          <property name="maximumSize">
+           <size>
+            <width>190</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="1">
+            <widget class="QSpinBox" name="userNbBox">
+             <property name="readOnly">
               <bool>true</bool>
              </property>
-             <property name="sortingEnabled">
-              <bool>false</bool>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::NoButtons</enum>
              </property>
-             <item>
-              <property name="text">
-               <string>Bernard</string>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Nombre: </string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" alignment="Qt::AlignHCenter">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Age moyen: </string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="avgAgeBox">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::NoButtons</enum>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="4">
+         <widget class="QGroupBox" name="detailsGroupBox">
+          <property name="maximumSize">
+           <size>
+            <width>690</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item alignment="Qt::AlignVCenter">
+            <widget class="QGroupBox" name="formGroupBox">
+             <property name="title">
+              <string>Détails</string>
+             </property>
+             <layout class="QFormLayout" name="formLayout">
+              <property name="leftMargin">
+               <number>30</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>François</string>
+              <property name="rightMargin">
+               <number>30</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Stéphane</string>
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Nom: </string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="nameDisplay">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Prénom: </string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="firstnameDisplay">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_7">
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+                <property name="text">
+                 <string>Age: </string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QSpinBox" name="ageDisplay">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+                <property name="buttonSymbols">
+                 <enum>QAbstractSpinBox::NoButtons</enum>
+                </property>
+                <property name="maximum">
+                 <number>1000</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="verticalGroupBox_3">
+             <property name="title">
+              <string>Page(s) administrée(s)</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_13">
+              <property name="leftMargin">
+               <number>30</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Patrick</string>
+              <property name="rightMargin">
+               <number>30</number>
               </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>Sophia</string>
+              <item>
+               <widget class="QListWidget" name="pageAdminList"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="verticalGroupBox">
+             <property name="title">
+              <string>Gérer les arcs vers les sommets</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_11">
+              <property name="leftMargin">
+               <number>1</number>
               </property>
-             </item>
+              <property name="rightMargin">
+               <number>1</number>
+              </property>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0">
+                  <property name="sizeConstraint">
+                   <enum>QLayout::SetDefaultConstraint</enum>
+                  </property>
+                  <item>
+                   <widget class="QListView" name="listView">
+                    <property name="maximumSize">
+                     <size>
+                      <width>16777215</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="deleteLineButton">
+                    <property name="text">
+                     <string>Supprimer</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <widget class="Line" name="line">
+                  <property name="frameShadow">
+                   <enum>QFrame::Raised</enum>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                  <property name="spacing">
+                   <number>6</number>
+                  </property>
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <item>
+                   <widget class="QWidget" name="widget_3" native="true"/>
+                  </item>
+                  <item>
+                   <widget class="QComboBox" name="nodeCombo">
+                    <property name="placeholderText">
+                     <string/>
+                    </property>
+                    <item>
+                     <property name="text">
+                      <string>-- Sélectionner --</string>
+                     </property>
+                    </item>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_2" native="true"/>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="addLineButton">
+                    <property name="text">
+                     <string>Ajouter</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0" alignment="Qt::AlignVCenter">
+         <widget class="QGroupBox" name="verticalGroupBox">
+          <property name="maximumSize">
+           <size>
+            <width>190</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>Sélectionner un Utilisateur</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="sizeConstraint">
+            <enum>QLayout::SetDefaultConstraint</enum>
+           </property>
+           <item>
+            <widget class="QComboBox" name="userCombo">
              <item>
               <property name="text">
-               <string>Lucie</string>
+               <string>-- Sélectionner --</string>
               </property>
              </item>
             </widget>
            </item>
           </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="PagesTab">
+       <attribute name="title">
+        <string>Pages</string>
+       </attribute>
+       <widget class="QGroupBox" name="horizontalGroupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>181</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <property name="leftMargin">
+          <number>6</number>
+         </property>
+         <property name="rightMargin">
+          <number>6</number>
+         </property>
+         <item alignment="Qt::AlignHCenter">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Nombre: </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="pageNbBox">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="buttonSymbols">
+            <enum>QAbstractSpinBox::NoButtons</enum>
+           </property>
+           <property name="maximum">
+            <number>1000</number>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QFrame" name="nameFrame">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>70</height>
-         </size>
+       <widget class="QLineEdit" name="adminListSearch_2">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>60</y>
+          <width>91</width>
+          <height>20</height>
+         </rect>
         </property>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>64</height>
+          <height>20</height>
          </size>
         </property>
-        <layout class="QVBoxLayout" name="nameLayout">
-         <item>
-          <widget class="QLabel" name="nameLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Nom</string>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="nameEdit">
-           <property name="maxLength">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
+        <property name="frame">
+         <bool>false</bool>
+        </property>
+        <property name="placeholderText">
+         <string>Filtrer ...</string>
+        </property>
        </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QWidget" name="widget" native="true"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QFrame" name="firstnameFrame">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>56</height>
-         </size>
+       <widget class="QComboBox" name="comboBox">
+        <property name="geometry">
+         <rect>
+          <x>290</x>
+          <y>90</y>
+          <width>79</width>
+          <height>23</height>
+         </rect>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>63</height>
-         </size>
-        </property>
-        <layout class="QVBoxLayout" name="firstnameLayout">
-         <item>
-          <widget class="QLabel" name="firstnameLabel">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="text">
-            <string>Prénom</string>
-           </property>
-           <property name="margin">
-            <number>0</number>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="firstnameEdit">
-           <property name="maxLength">
-            <number>20</number>
-           </property>
-          </widget>
-         </item>
-        </layout>
        </widget>
-      </item>
-     </layout>
-    </widget>
-   </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>739</width>
+     <width>969</width>
      <height>20</height>
     </rect>
    </property>
   </widget>
+  <action name="actionCharger_un_graphe">
+   <property name="text">
+    <string>Charger un graphe</string>
+   </property>
+  </action>
+  <action name="actionFermer">
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </action>
+  <action name="actionA_propos">
+   <property name="text">
+    <string>A propos</string>
+   </property>
+  </action>
  </widget>
+ <tabstops>
+  <tabstop>userRadio</tabstop>
+  <tabstop>pageRadio</tabstop>
+  <tabstop>nameEdit</tabstop>
+  <tabstop>firstnameEdit</tabstop>
+  <tabstop>ageBox</tabstop>
+  <tabstop>adminListSearch</tabstop>
+  <tabstop>adminList</tabstop>
+  <tabstop>createButton</tabstop>
+  <tabstop>nodeNbBox</tabstop>
+  <tabstop>nodesSortCombo</tabstop>
+  <tabstop>nodesList</tabstop>
+  <tabstop>lineNbBox</tabstop>
+  <tabstop>linesList</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
-   <sender>pageRadio</sender>
+   <sender>userRadio</sender>
    <signal>toggled(bool)</signal>
-   <receiver>adminFrame</receiver>
+   <receiver>firstnameFrame</receiver>
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>400</x>
-     <y>135</y>
+     <x>106</x>
+     <y>63</y>
     </hint>
     <hint type="destinationlabel">
-     <x>400</x>
-     <y>394</y>
+     <x>43</x>
+     <y>191</y>
     </hint>
    </hints>
   </connection>
@@ -401,28 +974,12 @@
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>400</x>
-     <y>109</y>
+     <x>81</x>
+     <y>53</y>
     </hint>
     <hint type="destinationlabel">
-     <x>400</x>
-     <y>330</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pageRadio</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>ageFrame</receiver>
-   <slot>hide()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>400</x>
-     <y>137</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>330</y>
+     <x>54</x>
+     <y>261</y>
     </hint>
    </hints>
   </connection>
@@ -433,28 +990,12 @@
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>400</x>
-     <y>109</y>
+     <x>94</x>
+     <y>60</y>
     </hint>
     <hint type="destinationlabel">
-     <x>400</x>
-     <y>419</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>userRadio</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>firstnameFrame</receiver>
-   <slot>show()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>400</x>
-     <y>108</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>400</x>
-     <y>245</y>
+     <x>65</x>
+     <y>329</y>
     </hint>
    </hints>
   </connection>
@@ -465,12 +1006,44 @@
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>400</x>
-     <y>135</y>
+     <x>113</x>
+     <y>85</y>
     </hint>
     <hint type="destinationlabel">
-     <x>400</x>
-     <y>245</y>
+     <x>181</x>
+     <y>193</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pageRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>ageFrame</receiver>
+   <slot>hide()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>156</x>
+     <y>88</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>169</x>
+     <y>260</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pageRadio</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>adminFrame</receiver>
+   <slot>show()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>138</x>
+     <y>92</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>152</x>
+     <y>324</y>
     </hint>
    </hints>
   </connection>
