@@ -331,7 +331,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.widget_3.setObjectName("widget_3")
         self.verticalLayout_12.addWidget(self.widget_3)
         self.nodeCombo = QtWidgets.QComboBox(self.verticalGroupBox2)
+<<<<<<< HEAD
         self.nodeCombo.setProperty("placeholderText", "")
+=======
+>>>>>>> GUI
         self.nodeCombo.setObjectName("nodeCombo")
         self.nodeCombo.addItem("")
         self.verticalLayout_12.addWidget(self.nodeCombo)
