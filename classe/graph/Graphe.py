@@ -238,13 +238,11 @@ class Graph(IGraphe):
                         i += 1
         # Arêtes aléatoires
         i = 0
+        user_list = list((self.__user_dict).values())
+        user_page_list = list((self.__user_dict | self.__page_dict).values())
         while i < nb_lines:
-            rand_node_1 = random.choice(
-                list((self.__user_dict | self.__page_dict).values())
-            ).get_node().get_name()
-            rand_node_2 = random.choice(
-                list((self.__user_dict | self.__page_dict).values())
-            ).get_node().get_name()
+            rand_node_1 = random.choice(user_list).get_node().get_name()
+            rand_node_2 = random.choice(user_page_list).get_node().get_name()
             if self.add_line(rand_node_1, rand_node_2):
                 i += 1
 
