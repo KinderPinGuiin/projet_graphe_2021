@@ -257,8 +257,8 @@ class Ui(Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    app.setStyle('Macintosh')
     app.setStyle('Fusion')
+    app.setStyle('Macintosh')
     window = Ui()
     sys.exit(app.exec())
 
