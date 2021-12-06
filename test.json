@@ -2,8 +2,7 @@
     "Dupont": {
         "type": "u",
         "succ": [
-            "NARUTO FAN",
-            "Dupond"
+            "NARUTO FAN"
         ],
         "firstname": "Bernard",
         "age": 56
@@ -11,7 +10,7 @@
     "Dupond": {
         "type": "u",
         "succ": [
-            "NARUTO FAN"
+            "Dupont"
         ],
         "firstname": "Jean",
         "age": 23
@@ -19,6 +18,6 @@
     "NARUTO FAN": {
         "type": "p",
         "succ": [],
-        "admins": ["Dupont"]
+        "admins": []
     }
 }

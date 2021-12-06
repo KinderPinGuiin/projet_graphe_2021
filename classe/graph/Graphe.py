@@ -1,4 +1,3 @@
-import fileinput
 import json
 from typing import Callable, Union
 
@@ -76,7 +75,7 @@ class Graph(IGraphe):
         for nodes_src in self.__nodes:
             for nodes_dst in nodes_src.get_succ_list():
                 result.append(
-                    (nodes_src.get_node().get_name(),nodes_dst.get_name())
+                    (nodes_src.get_node().get_name(), nodes_dst.get_name())
                 )
 
         return result
@@ -113,7 +112,6 @@ class Graph(IGraphe):
     def delete_node(self, node: Sommet) -> None:
         assert node is not None
 
-        nodes = self.get_nodes()
         node_name = node.get_name()
 
         if self.is_node_in(node):
@@ -126,6 +124,8 @@ class Graph(IGraphe):
             del self.__nodes[self.__nodes.index(cell)]
 
     def add_line(self, node1: str, node2: str) -> bool:
+        if node2 in self.__get_succ_list(node1):
+            return False
         if not self.__check_2_nodes(node1, node2):
             return False
         self.__get_succ_list(node1).append(self.get_node_by_name(node2))
@@ -157,6 +157,43 @@ class Graph(IGraphe):
         self.__create_graph_from_dict(graph_dict)
         file.close()
 
+    def page_rank(self) -> dict:
+        if self.nb_nodes() == 0:
+            return
+        page_rank = dict()
+        for node in (self.__page_dict | self.__user_dict):
+            page_rank[node] = 1
+        i = 0
+        while i <= 100:
+            for node in page_rank:
+                u_sum = 0
+                for u in self.__incoming_neighbour(node):
+                    u_sum += page_rank[u] / self.__page_rank_degree(u)
+                page_rank[node] = (0.15 / self.nb_nodes()) + 0.85 * u_sum
+                i += 1
+        return page_rank
+
+    def shortest_distance(self, s: str):
+        dist = dict()
+        for node in (self.__page_dict | self.__user_dict):
+            dist[node] = 1000000
+        dist[s] = 0
+        p = [node.get_node().get_name() for node in self.get_nodes()]
+        while len(p) > 0:
+            min = 1000000
+            u = ""
+            for node in p:
+                if dist[node] <= min:
+                    min = dist[node]
+                    u = node
+            p.remove(u)
+            for v in self.__incoming_neighbour(u):
+                alt = dist[u] + 1
+                if alt <= dist[v]:
+                    dist[v] = alt
+        return dist
+
+
     # Outils
 
     """
@@ -179,10 +216,6 @@ class Graph(IGraphe):
     def __sort_nodes(self, key: Callable, reverse: bool = False) -> list[Sommet]:
         sorted_cells = sorted(self.__nodes, key=key, reverse=reverse)
         return [cell.get_node() for cell in sorted_cells]
-
-    def __update_dict(self, index: int) -> None:
-        # TODO
-        return None
 
     """
     Teste l'existence de 2 noeuds dans le graphe et vérifie qu'ils ne sont pas
@@ -256,3 +289,49 @@ class Graph(IGraphe):
                 graph_dict[node_name]["admins"]
             )
             self.add_node(page)
+
+    """
+    Renvoie le degré sortant du sommet de nom node_name.
+    """
+    def __outgoing_degree(self, node_name: str) -> int:
+        cell = self.__get_cell_by_name(node_name)
+        return len(cell.get_succ_list())
+
+    """
+    Renvoie le degré entrant du sommet de nom node_name.
+    """
+    def __incoming_degree(self, node_name: str) -> int:
+        incoming_nodes = 0
+        for cell in self.__nodes:
+            for node in cell.get_succ_list():
+                if node.get_name() == node_name:
+                    incoming_nodes += 1
+        return incoming_nodes
+
+    """
+    Renvoie le degré sortant du sommet de nom node_name ou son degré entrant si
+    le sortant vaut 0.
+    """
+    def __page_rank_degree(self, node_name: str) -> int:
+        outgoing_degree = self.__outgoing_degree(node_name)
+        return outgoing_degree if outgoing_degree > 0 \
+            else self.__incoming_degree(node_name)
+
+    """
+    Renvoie l'ensemble des noms des voisins entrants du noeud de nom node_name
+    """
+    def __incoming_neighbour(self, node_name: str) -> list[str]:
+        cell = self.__get_cell_by_name(node_name)
+        return [node.get_name() for node in cell.get_succ_list()]
+
+    """
+    Renvoie l'ensemble des noms des voisins sortants du noeud de nom node_name
+    """
+    def __outgoing_neighbour(self, node_name: str) -> list[str]:
+        out_neighbours = []
+        for cell in self.__nodes:
+            for node in cell.get_succ_list():
+                if node.get_name() == node_name:
+                    out_neighbours.append(cell.get_node().get_name())
+        return out_neighbours
+
