@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>969</width>
-    <height>747</height>
+    <width>1000</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -337,7 +337,7 @@
        <attribute name="title">
         <string>Graphe</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,2">
+       <layout class="QGridLayout" name="gridLayout_5" columnstretch="1,0">
         <item row="1" column="0">
          <widget class="QGroupBox" name="verticalGroupBox_2">
           <property name="maximumSize">
@@ -517,6 +517,17 @@
           <property name="title">
            <string/>
           </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QWebEngineView" name="webEngineView">
+             <property name="url">
+              <url>
+               <string>about:blank</string>
+              </url>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -767,7 +778,7 @@
                   </item>
                   <item>
                    <widget class="QComboBox" name="nodeCombo">
-                    <property name="placeholderText">
+                    <property name="placeholderText" stdset="0">
                      <string/>
                     </property>
                     <item>
@@ -913,18 +924,10 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>969</width>
-     <height>21</height>
+     <width>1000</width>
+     <height>24</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFichier">
-    <property name="title">
-     <string>Fichier</string>
-    </property>
-    <addaction name="actionSauvegarder"/>
-    <addaction name="actionCharger"/>
-   </widget>
-   <addaction name="menuFichier"/>
   </widget>
   <action name="actionCharger_un_graphe">
    <property name="text">
@@ -941,17 +944,14 @@
     <string>A propos</string>
    </property>
   </action>
-  <action name="actionSauvegarder">
-   <property name="text">
-    <string>Sauvegarder...</string>
-   </property>
-  </action>
-  <action name="actionCharger">
-   <property name="text">
-    <string>Charger...</string>
-   </property>
-  </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebEngineView</class>
+   <extends>QWidget</extends>
+   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>userRadio</tabstop>
   <tabstop>pageRadio</tabstop>

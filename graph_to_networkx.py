@@ -92,27 +92,27 @@ def display_attribute(S: Sommet):
 
 
 # ------ Partie de test (temp) ------
-test = Graph()
+# test = Graph()
 
-test.add_node(Utilisateur("Dupont", "Bernard", 56))
-test.add_node(Utilisateur("Dupond", "Jean", 23))
-test.add_node(Utilisateur("Boucher", "Pierre", 49))
-test.add_node(Utilisateur("Marmion", "Compagnon", 57))
-test.add_node(Utilisateur("Michel", "Clothilde", 23))
-test.add_node(Utilisateur("Alacoque", "Bois", 23))
-test.add_node(Page("NARUTO FAN", [test.get_node_by_name(
-    "Dupont"), test.get_node_by_name("Michel")]))
-test.add_line("Dupont", "NARUTO FAN")
-test.add_line("Dupont", "Dupond")
-test.add_line("NARUTO FAN", "Dupont")
-test.add_line("Dupont", "Marmion")
-test.add_line("Michel", "Alacoque")
-test.add_line("Boucher", "Dupond")
+# test.add_node(Utilisateur("Dupont", "Bernard", 56))
+# test.add_node(Utilisateur("Dupond", "Jean", 23))
+# test.add_node(Utilisateur("Boucher", "Pierre", 49))
+# test.add_node(Utilisateur("Marmion", "Compagnon", 57))
+# test.add_node(Utilisateur("Michel", "Clothilde", 23))
+# test.add_node(Utilisateur("Alacoque", "Bois", 23))
+# test.add_node(Page("NARUTO FAN", [test.get_node_by_name(
+#     "Dupont"), test.get_node_by_name("Michel")]))
+# test.add_line("Dupont", "NARUTO FAN")
+# test.add_line("Dupont", "Dupond")
+# test.add_line("NARUTO FAN", "Dupont")
+# test.add_line("Dupont", "Marmion")
+# test.add_line("Michel", "Alacoque")
+# test.add_line("Boucher", "Dupond")
 
-print(test.get_lines())
-print(test.get_nodes())
+# print(test.get_lines())
+# print(test.get_nodes())
 
-create_graph_html(test, "graphe_temp.html")
+# create_graph_html(test, "graphe_temp.html")
 
 # print("Test display_attribute :")
 # print(display_attribute(test.get_node_by_name("Dupond")))
