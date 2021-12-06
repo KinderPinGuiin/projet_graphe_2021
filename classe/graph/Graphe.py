@@ -187,7 +187,7 @@ class Graph(IGraphe):
                     min = dist[node]
                     u = node
             p.remove(u)
-            for v in self.__incoming_neighbour(u):
+            for v in self.__outgoing_neighbour(u):
                 alt = dist[u] + 1
                 if alt <= dist[v]:
                     dist[v] = alt
@@ -320,14 +320,14 @@ class Graph(IGraphe):
     """
     Renvoie l'ensemble des noms des voisins entrants du noeud de nom node_name
     """
-    def __incoming_neighbour(self, node_name: str) -> list[str]:
+    def __outgoing_neighbour(self, node_name: str) -> list[str]:
         cell = self.__get_cell_by_name(node_name)
         return [node.get_name() for node in cell.get_succ_list()]
 
     """
     Renvoie l'ensemble des noms des voisins sortants du noeud de nom node_name
     """
-    def __outgoing_neighbour(self, node_name: str) -> list[str]:
+    def __incoming_neighbour(self, node_name: str) -> list[str]:
         out_neighbours = []
         for cell in self.__nodes:
             for node in cell.get_succ_list():
