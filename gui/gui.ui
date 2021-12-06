@@ -519,8 +519,8 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QWebEngineView" name="webEngineView">
-             <property name="url">
+            <widget class="QWebEngineView" name="webEngineView" native="true">
+             <property name="url" stdset="0">
               <url>
                <string>about:blank</string>
               </url>
@@ -778,7 +778,7 @@
                   </item>
                   <item>
                    <widget class="QComboBox" name="nodeCombo">
-                    <property name="placeholderText" stdset="0">
+                    <property name="placeholderText">
                      <string/>
                     </property>
                     <item>
@@ -925,9 +925,17 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>24</height>
+     <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionSauvegarder"/>
+    <addaction name="actionCharger"/>
+   </widget>
+   <addaction name="menuFichier"/>
   </widget>
   <action name="actionCharger_un_graphe">
    <property name="text">
@@ -942,6 +950,16 @@
   <action name="actionA_propos">
    <property name="text">
     <string>A propos</string>
+   </property>
+  </action>
+  <action name="actionSauvegarder">
+   <property name="text">
+    <string>Sauvegarder...</string>
+   </property>
+  </action>
+  <action name="actionCharger">
+   <property name="text">
+    <string>Charger...</string>
    </property>
   </action>
  </widget>

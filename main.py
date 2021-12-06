@@ -69,8 +69,8 @@ class Ui(Ui_MainWindow):
         self.addLineButton.clicked.connect(self.__add_line)
 
         # Barre de menu
-        #self.actionCharger.triggered.connect(self.__handle_load)
-        #self.actionSauvegarder.triggered.connect(self.__handle_save)
+        self.actionCharger.triggered.connect(self.__handle_load)
+        self.actionSauvegarder.triggered.connect(self.__handle_save)
 
 
     # Raffraichissement de l'interface utilisateur
