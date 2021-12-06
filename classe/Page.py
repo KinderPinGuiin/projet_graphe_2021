@@ -3,7 +3,7 @@ from classe.Utilisateur import Utilisateur
 
 
 class Page(Sommet):
-    def __init__(self, name: str, admins: list[Utilisateur] = []):
+    def __init__(self, name: str, admins: list[Utilisateur]):
         Sommet.__init__(self, name)
         self.__admins = admins
 
