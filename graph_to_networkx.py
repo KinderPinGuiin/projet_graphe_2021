@@ -37,10 +37,10 @@ def graph_to_netX(G: Graph,):
 
 
 # Creation d'un fichier html de nom name contenant représentation du graphe G
-def create_graph_html(G: Graph, name: str, h: int, w: int):
+def create_graph_html(G: Graph, name: str):
     filename = name + ("" if name.endswith(".html") else ".html")
     # Initialisation du graphe pyvis oriente
-    graphepyvis = Network(height=h, width=w, directed=True)
+    graphepyvis = Network(directed=True)
     graphepyvis.repulsion()
     # Tranformation de notre graphe en un graphe utilisable par pyvis
     graphepyvis.from_nx(graph_to_netX(G))

@@ -86,7 +86,8 @@ class Ui(Ui_MainWindow):
     # Raffraichissement de l'interface utilisateur
     def __update_ui(self):
         # Actualisation de la modélisation du graphe
-        self.__resize_graph_view()
+        create_graph_html(self.model, self.GRAPH_FILENAME)
+        self.webEngineView.setHtml(open("./" + self.GRAPH_FILENAME, 'r').read())
         
         # Panneau de création de sommets
         self.nameEdit.setText('')
@@ -314,20 +315,6 @@ class Ui(Ui_MainWindow):
         file.setAcceptMode(QFileDialog.AcceptSave)
         if file.exec_():
             self.model.save_graph(file.selectedFiles()[0])
-
-    
-    def __resize_graph_view(self):
-        g = self.webEngineView.geometry()
-        h = g.height() - g.y()
-        w = g.width() - g.x()
-        create_graph_html(self.model, self.GRAPH_FILENAME, h, w)
-        self.webEngineView.setHtml(open("./" + self.GRAPH_FILENAME, 'r').read())
-
-
-    def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
-        self.__resize_graph_view()
-        event.accept()
-
 
     # Redéfinission de la fermeture de l'application
     def closeEvent(self, e: QtGui.QCloseEvent) -> None:
