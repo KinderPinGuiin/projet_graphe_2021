@@ -6,7 +6,7 @@ from classe.graph.Graphe import Graph
 from graph_to_networkx import create_graph_html
 
 from PyQt5 import QtGui, QtWidgets, uic, QtCore
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 import sys
 from gui.gui import Ui_MainWindow
 import re
@@ -21,7 +21,6 @@ class Ui(Ui_MainWindow):
     def __init__(self):
         super().__init__()
         super().setupUi(self)
-        self.show()
 
         self.__create_model()
         self.__create_controler()
@@ -32,7 +31,7 @@ class Ui(Ui_MainWindow):
         self.createButton.setEnabled(False)
         
         # Le nom du fichier html contenant la modélisation du graphe
-        self.graph_filename = "graph.html"
+        self.GRAPH_FILENAME = "graph.html"
 
         # Tab Utilisateurs
         self.detailsGroupBox.setEnabled(False)
@@ -46,7 +45,9 @@ class Ui(Ui_MainWindow):
         # Synchronisation avec le fichier json
         self.isSync = True
 
+        self.show()
         self.__update_ui()
+        
 
 
     # Création du graph
@@ -85,8 +86,7 @@ class Ui(Ui_MainWindow):
     # Raffraichissement de l'interface utilisateur
     def __update_ui(self):
         # Actualisation de la modélisation du graphe
-        create_graph_html(self.model, self.graph_filename)
-        self.webEngineView.setHtml(open("./" + self.graph_filename, 'r').read())
+        self.__resize_graph_view()
         
         # Panneau de création de sommets
         self.nameEdit.setText('')
@@ -316,6 +316,17 @@ class Ui(Ui_MainWindow):
             self.model.save_graph(file.selectedFiles()[0])
 
     
+    def __resize_graph_view(self):
+        g = self.webEngineView.geometry()
+        h = g.height() - g.y()
+        w = g.width() - g.x()
+        create_graph_html(self.model, self.GRAPH_FILENAME, h, w)
+        self.webEngineView.setHtml(open("./" + self.GRAPH_FILENAME, 'r').read())
+
+
+    def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
+        self.__resize_graph_view()
+        event.accept()
 
 
     # Redéfinission de la fermeture de l'application
@@ -334,12 +345,12 @@ class Ui(Ui_MainWindow):
             if x == QMessageBox.No:
                 e.ignore()
             else:
-                os.remove(self.graph_filename)
+                os.remove(self.GRAPH_FILENAME)
                 if x == QMessageBox.Save:
                     self.__handle_save()
                 e.accept()
         else:
-            os.remove(self.graph_filename)
+            os.remove(self.GRAPH_FILENAME)
             e.accept()
         
         

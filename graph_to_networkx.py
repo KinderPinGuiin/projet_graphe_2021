@@ -9,7 +9,7 @@ from classe.graph.Graphe import Graph
 
 # Renvoie la transposition d'un graphe de type Graph
 # à un graphe orienté de networkX
-def graph_to_netX(G: Graph):
+def graph_to_netX(G: Graph,):
     # Initialisation du grapge orienté
     GX = nx.DiGraph()
     # Ajout des noeud
@@ -36,10 +36,10 @@ def graph_to_netX(G: Graph):
 
 
 # Creation d'un fichier html de nom name contenant représentation du graphe G
-def create_graph_html(G: Graph, name: str):
+def create_graph_html(G: Graph, name: str, h: int, w: int):
     filename = name + ("" if name.endswith(".html") else ".html")
     # Initialisation du graphe pyvis oriente
-    graphepyvis = Network(directed=True)
+    graphepyvis = Network(height=h, width=w, directed=True)
     graphepyvis.repulsion()
     # Tranformation de notre graphe en un graphe utilisable par pyvis
     graphepyvis.from_nx(graph_to_netX(G))
