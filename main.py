@@ -6,7 +6,7 @@ from classe.graph.Graphe import Graph
 from graph_to_networkx import create_graph_html
 
 from PyQt5 import QtGui, QtWidgets, uic, QtCore
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from PyQt5.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 import sys
 from gui.gui import Ui_MainWindow
 import re
@@ -21,7 +21,6 @@ class Ui(Ui_MainWindow):
     def __init__(self):
         super().__init__()
         super().setupUi(self)
-        self.show()
 
         self.__create_model()
         self.__create_controler()
@@ -32,14 +31,23 @@ class Ui(Ui_MainWindow):
         self.createButton.setEnabled(False)
         
         # Le nom du fichier html contenant la modélisation du graphe
-        self.graph_filename = "graph.html"
+        self.GRAPH_FILENAME = "graph.html"
 
         # Tab Utilisateurs
         self.detailsGroupBox.setEnabled(False)
         self.deleteNodeButton.setEnabled(False)
+        self.deleteLineButton.setEnabled(False)
         self.addLineButton.setEnabled(False)
 
+        self.ADD = 0
+        self.DELETE = 1
+
+        # Synchronisation avec le fichier json
+        self.isSync = True
+
+        self.show()
         self.__update_ui()
+        
 
 
     # Création du graph
@@ -65,8 +73,10 @@ class Ui(Ui_MainWindow):
         # Tab Utilisateurs
         self.userCombo.activated.connect(self.__user_details_setup)
         self.deleteNodeButton.clicked.connect(self.__delete_node)
-        self.nodeCombo.activated.connect(self.__add_node_setup)
+        self.nodeCombo.activated.connect(self.__line_buttons_setup)
+        self.deleteLineCombo.activated.connect(self.__line_buttons_setup)
         self.addLineButton.clicked.connect(self.__add_line)
+        self.deleteLineButton.clicked.connect(self.__delete_line)
 
         # Barre de menu
         self.actionCharger.triggered.connect(self.__handle_load)
@@ -76,8 +86,7 @@ class Ui(Ui_MainWindow):
     # Raffraichissement de l'interface utilisateur
     def __update_ui(self):
         # Actualisation de la modélisation du graphe
-        create_graph_html(self.model, self.graph_filename)
-        self.webEngineView.setHtml(open("./" + self.graph_filename, 'r').read())
+        self.__resize_graph_view()
         
         # Panneau de création de sommets
         self.nameEdit.setText('')
@@ -94,7 +103,12 @@ class Ui(Ui_MainWindow):
         for item in self.model.get_user_dict().keys():
             self.adminList.addItem(item)
             self.userCombo.addItem(item)
+        self.userCombo.setCurrentText(self.nameDisplay.text())
+        self.__user_details_setup()
 
+
+
+        # Tab Graphe
         self.nodeNbBox.setValue(self.model.get_nb_pages() + self.model.get_nb_users())
         self.__display_nodesList()
 
@@ -115,6 +129,7 @@ class Ui(Ui_MainWindow):
         if self.userCombo.currentIndex() == 0:
             self.detailsGroupBox.setDisabled(True)
             self.deleteNodeButton.setDisabled(True)
+            self.deleteLineButton.setDisabled(True)
             self.nameDisplay.setText("")
             self.firstnameDisplay.setText("")
             self.ageDisplay.setValue(0)
@@ -128,7 +143,6 @@ class Ui(Ui_MainWindow):
             self.ageDisplay.setValue(user.get_age())
 
             admins_dict = self.model.get_admins()
-            print(admins_dict)
             for key in admins_dict:
                 if user in admins_dict[key]:
                     self.pageAdminList.addItem(key)
@@ -136,18 +150,23 @@ class Ui(Ui_MainWindow):
             self.nodeCombo.clear()
             self.nodeCombo.addItem("-- Sélectionner --")
             node1 = self.model.get_user_dict()[self.nameDisplay.text()]
+
             for item in self.model.get_nodes():
                 node2 = item.get_node()
                 if node2.get_name() != node1.get_node().get_name() and \
                     not node2 in node1.get_succ_list():
                     self.nodeCombo.addItem(node2.get_name())
+            
+            self.deleteLineCombo.clear()
+            self.deleteLineCombo.addItem("-- Sélectionner --")
+            for item in node1.get_succ_list():
+                self.deleteLineCombo.addItem(item.get_name())
 
-    # Slot: activation bouton de création de liens
-    def __add_node_setup(self):
-        if self.nodeCombo.currentIndex() == 0:
-            self.addLineButton.setDisabled(True)
-        else:
-            self.addLineButton.setDisabled(False)
+    # Slot: activation bouton de création et suppression de liens
+    def __line_buttons_setup(self):
+        self.deleteLineButton.setDisabled(self.deleteLineCombo.currentIndex() == 0)
+        self.addLineButton.setDisabled(self.nodeCombo.currentIndex() == 0)
+
 
     # Slot: filtre d'admins
     def __filter_amdinlist(self):
@@ -159,6 +178,7 @@ class Ui(Ui_MainWindow):
                 
     # Slot: création de sommets
     def __create(self):
+        self.isSync = False
         popup = QMessageBox()
 
         if self.model.get_node_by_name(self.nameEdit.text()) == None:
@@ -218,7 +238,7 @@ class Ui(Ui_MainWindow):
 
     # Slot: suppression d'un sommet
     def __delete_node(self):
-
+        self.isSync = False
         name = self.nameDisplay.text()
         popup = QMessageBox()
         popup.setWindowTitle("Supprimer le sommet ?")
@@ -235,21 +255,43 @@ class Ui(Ui_MainWindow):
 
     # Slot: ajout d'un lien
     def __add_line(self):
-        src = self.model.get_node_by_name(self.nameDisplay.text()).get_name()
-        dst = self.model.get_node_by_name(self.nodeCombo.currentText()).get_name()
+        src = self.nameDisplay.text()
+        dst = self.nodeCombo.currentText()
 
+        self.__manage_line(src, dst, self.ADD)
+
+    # Slot: suppression d'un arc
+    def __delete_line(self):
+        self.isSync = False
+        src = self.nameDisplay.text()
+        dst = self.deleteLineCombo.currentText()
+
+        self.__manage_line(src, dst, self.DELETE)
+
+    def __manage_line(self, src: str, dst: str, action: int):
+        self.isSync = False
         popup = QMessageBox()
         try:
-            self.model.add_line(src, dst)
-
+            if action == self.ADD:
+                self.model.add_line(src, dst)
+                actn = " ajouté "
+            elif action == self.DELETE:
+                self.model.delete_line(src, dst)
+                actn = " supprimé "
+                
             popup.setWindowTitle("Succès")
-            popup.setText("Arc de " + src + " vers " + dst + " créé avec succès.")
+            popup.setText("Arc de " + src + " vers " + dst + actn + "avec succès.")
             popup.setIcon(QMessageBox.Information)
         except:
+            if action == self.ADD:
+                actn = "L'ajout"
+            elif action == self.DELETE:
+                actn = "La suppression"
             popup.setWindowTitle("Erreur")
-            popup.setText("La création de l'arc " + src + " vers " + dst + " a échouée.")
+            popup.setText( actn + " de l'arc " + src + " vers " + dst + " a échouée.")
             popup.setIcon(QMessageBox.Critical)
         popup.exec_()
+        self.__user_details_setup()
         self.__update_ui()
     
     # Slot: gestion du chargement d'un graphe
@@ -267,15 +309,49 @@ class Ui(Ui_MainWindow):
     
     # Slot: gestion de la sauvegarde d'un graphe
     def __handle_save(self):
+        self.isSync = True
         file = QFileDialog()
         file.setAcceptMode(QFileDialog.AcceptSave)
         if file.exec_():
             self.model.save_graph(file.selectedFiles()[0])
 
+    
+    def __resize_graph_view(self):
+        g = self.webEngineView.geometry()
+        h = g.height() - g.y()
+        w = g.width() - g.x()
+        create_graph_html(self.model, self.GRAPH_FILENAME, h, w)
+        self.webEngineView.setHtml(open("./" + self.GRAPH_FILENAME, 'r').read())
+
+
+    def resizeEvent(self, event: QtGui.QResizeEvent) -> None:
+        self.__resize_graph_view()
+        event.accept()
+
+
     # Redéfinission de la fermeture de l'application
-    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
-        os.remove(self.graph_filename)
-        return super().closeEvent(a0)()
+    def closeEvent(self, e: QtGui.QCloseEvent) -> None:
+        if not self.isSync:
+            popup = QMessageBox()
+            popup.setWindowTitle("Attention !")
+            popup.setText("Cette action va entraîner la perte des données non sauvegardées.")
+            popup.setInformativeText("Voulez-vous continuer ?")
+            popup.setIcon(QMessageBox.Warning)
+            popup.setStandardButtons(QMessageBox.Save | QMessageBox.No | QMessageBox.Yes)
+            popup.setDefaultButton(QMessageBox.No)
+
+            
+            x = popup.exec_()
+            if x == QMessageBox.No:
+                e.ignore()
+            else:
+                os.remove(self.GRAPH_FILENAME)
+                if x == QMessageBox.Save:
+                    self.__handle_save()
+                e.accept()
+        else:
+            os.remove(self.GRAPH_FILENAME)
+            e.accept()
         
         
 

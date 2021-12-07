@@ -338,6 +338,28 @@
         "firstname": "Margaux",
         "age": 52
     },
+    "Dupont": {
+        "type": "u",
+        "succ": [
+            "NARUTO FAN"
+        ],
+        "firstname": "Bernard",
+        "age": 56
+    },
+    "NARUTO FAN": {
+        "type": "p",
+        "succ": [],
+        "admins": []
+    },
+    "Dupond": {
+        "type": "u",
+        "succ": [
+            "Dupont",
+            "NARUTO FAN"
+        ],
+        "firstname": "Jean",
+        "age": 23
+    },
     "Bertin": {
         "type": "u",
         "succ": [
