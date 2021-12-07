@@ -58,6 +58,7 @@ def create_graph_html(G: Graph, name: str):
     f.close()
     f = open(filename, "w")
     f.write(f_content)
+    f.close()
             
 
 
