@@ -1,11 +1,15 @@
 import json
 from typing import Callable, Union
 
+import faker
+
 from classe.Utilisateur import Utilisateur
 from classe.graph.Sommet import Sommet
 from classe.graph.IGraphe import IGraphe
 from classe.Page import Page
 from classe.graph.GraphCellule import GraphCellule
+import random
+from faker import *
 
 
 class Graph(IGraphe):
@@ -94,7 +98,7 @@ class Graph(IGraphe):
 
     # Commandes
 
-    def add_node(self, node: Sommet) -> None:
+    def add_node(self, node: Sommet) -> bool:
         assert node is not None
 
         nodes = self.get_nodes()
@@ -108,6 +112,9 @@ class Graph(IGraphe):
                 self.get_page_dict()[node_name] = cell
             else:
                 self.get_user_dict()[node_name] = cell
+            return True
+        else:
+            return False
 
     def delete_node(self, node: Sommet) -> None:
         assert node is not None
@@ -125,6 +132,8 @@ class Graph(IGraphe):
 
     def add_line(self, node1: str, node2: str) -> bool:
         if node2 in self.__get_succ_list(node1):
+            return False
+        if node1 == node2:
             return False
         if not self.__check_2_nodes(node1, node2):
             return False
@@ -193,6 +202,49 @@ class Graph(IGraphe):
                     dist[v] = alt
         return dist
 
+    def random_graph(self, nb_node: int, nb_lines: int):
+        # Reset le graphe
+        self.__nodes = list[GraphCellule]()
+        self.__page_dict = dict()
+        self.__user_dict = dict()
+        # Utilise la librairie Faker afin de générer des sommets aléatoires
+        # https://faker.readthedocs.io/en/master/
+        Faker.seed(0)
+        fake = Faker("fr_FR")
+        i = 0
+        while i < nb_node:
+            # Créé un utilisateur (80% de chance)
+            if random.randint(1, 10) <= 8:
+                r = self.add_node(
+                    Utilisateur(
+                        fake.last_name(), 
+                        fake.first_name(), 
+                        random.randint(13, 100)
+                    )
+                )
+                if r:
+                    i += 1
+            else:
+                # Créé une page seulement s'il y a un utilisateur dans le graphe
+                if self.get_nb_users() > 0:
+                    rand_usr = random.choice(list(self.__user_dict.values()))
+                    r = self.add_node(
+                        Page(
+                            fake.sentence(nb_words=3),
+                            [rand_usr.get_node()]
+                        )
+                    )
+                    if r:
+                        i += 1
+        # Arêtes aléatoires
+        i = 0
+        user_list = list((self.__user_dict).values())
+        user_page_list = list((self.__user_dict | self.__page_dict).values())
+        while i < nb_lines:
+            rand_node_1 = random.choice(user_list).get_node().get_name()
+            rand_node_2 = random.choice(user_page_list).get_node().get_name()
+            if self.add_line(rand_node_1, rand_node_2):
+                i += 1
 
     # Outils
 
@@ -284,9 +336,14 @@ class Graph(IGraphe):
             )
             self.add_node(user)
         else:
+            admins = []
+            for admin_name in graph_dict[node_name]["admins"]:
+                if self.get_node_by_name(admin_name) is None:
+                    self.__create_dict_node(graph_dict, admin_name)
+                admins.append(self.get_node_by_name(admin_name))
             page = Page(
                 node_name,
-                graph_dict[node_name]["admins"]
+                admins
             )
             self.add_node(page)
 

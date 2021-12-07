@@ -40,6 +40,7 @@ def create_graph_html(G: Graph, name: str):
     filename = name + ("" if name.endswith(".html") else ".html")
     # Initialisation du graphe pyvis oriente
     graphepyvis = Network(directed=True)
+    graphepyvis.repulsion()
     # Tranformation de notre graphe en un graphe utilisable par pyvis
     graphepyvis.from_nx(graph_to_netX(G))
     graphepyvis.write_html(filename)
@@ -60,7 +61,9 @@ def get_fullname(S: Sommet):
 def get_name_admin(page: Page):
     str = "Admin : </br>"
     for admin in page.get_admins():
-        str += "- " + admin.get_name() + "</br>"
+        str += "- "
+        str += admin.get_name()
+        str += "</br>"
     return str
 
 
@@ -93,7 +96,8 @@ def display_attribute(S: Sommet):
 
 # ------ Partie de test (temp) ------
 # test = Graph()
-
+# test.random_graph(100, 50)
+# test.save_graph("tmp")
 # test.add_node(Utilisateur("Dupont", "Bernard", 56))
 # test.add_node(Utilisateur("Dupond", "Jean", 23))
 # test.add_node(Utilisateur("Boucher", "Pierre", 49))
