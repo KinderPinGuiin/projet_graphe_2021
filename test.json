@@ -7,17 +7,18 @@
         "firstname": "Bernard",
         "age": 56
     },
-    "Dupond": {
-        "type": "u",
-        "succ": [
-            "Dupont"
-        ],
-        "firstname": "Jean",
-        "age": 23
-    },
     "NARUTO FAN": {
         "type": "p",
         "succ": [],
         "admins": []
+    },
+    "Dupond": {
+        "type": "u",
+        "succ": [
+            "Dupont",
+            "NARUTO FAN"
+        ],
+        "firstname": "Jean",
+        "age": 23
     }
 }

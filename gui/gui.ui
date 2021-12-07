@@ -519,8 +519,8 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QWebEngineView" name="webEngineView" native="true">
-             <property name="url" stdset="0">
+            <widget class="QWebEngineView" name="webEngineView">
+             <property name="url">
               <url>
                <string>about:blank</string>
               </url>
@@ -729,19 +729,27 @@
               <item>
                <layout class="QHBoxLayout" name="horizontalLayout" stretch="1,1,1">
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0">
+                 <layout class="QVBoxLayout" name="verticalLayout_15" stretch="0,0,0">
+                  <property name="spacing">
+                   <number>6</number>
+                  </property>
                   <property name="sizeConstraint">
                    <enum>QLayout::SetDefaultConstraint</enum>
                   </property>
+                  <property name="topMargin">
+                   <number>6</number>
+                  </property>
                   <item>
-                   <widget class="QListView" name="listView">
-                    <property name="maximumSize">
-                     <size>
-                      <width>16777215</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
+                   <widget class="QComboBox" name="deleteLineCombo">
+                    <item>
+                     <property name="text">
+                      <string>-- Sélectionner --</string>
+                     </property>
+                    </item>
                    </widget>
+                  </item>
+                  <item>
+                   <widget class="QWidget" name="widget_2" native="true"/>
                   </item>
                   <item>
                    <widget class="QPushButton" name="deleteLineButton">
@@ -763,22 +771,22 @@
                  </widget>
                 </item>
                 <item>
-                 <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <layout class="QVBoxLayout" name="verticalLayout_12" stretch="0,0,0">
                   <property name="spacing">
                    <number>6</number>
                   </property>
                   <property name="leftMargin">
                    <number>0</number>
                   </property>
+                  <property name="topMargin">
+                   <number>6</number>
+                  </property>
                   <property name="rightMargin">
                    <number>0</number>
                   </property>
                   <item>
-                   <widget class="QWidget" name="widget_3" native="true"/>
-                  </item>
-                  <item>
                    <widget class="QComboBox" name="nodeCombo">
-                    <property name="placeholderText">
+                    <property name="placeholderText" stdset="0">
                      <string/>
                     </property>
                     <item>
@@ -789,7 +797,7 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QWidget" name="widget_2" native="true"/>
+                   <widget class="QWidget" name="widget_3" native="true"/>
                   </item>
                   <item>
                    <widget class="QPushButton" name="addLineButton">
@@ -925,7 +933,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>21</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
