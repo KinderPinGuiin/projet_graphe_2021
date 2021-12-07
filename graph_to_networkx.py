@@ -1,5 +1,6 @@
 import networkx as nx
 from pyvis.network import Network
+import re
 
 from classe.graph.Sommet import Sommet
 from classe.Page import Page
@@ -44,6 +45,20 @@ def create_graph_html(G: Graph, name: str):
     # Tranformation de notre graphe en un graphe utilisable par pyvis
     graphepyvis.from_nx(graph_to_netX(G))
     graphepyvis.write_html(filename)
+    # Change le CSS du fichier pour qu'il s'adapte au conteneur
+    f = open(filename, "r")
+    f_content = ""
+    pattern = re.compile(r"[ \t]+(width|height): ([0-9]+px)")
+    for line in f:
+        new_line = line
+        search = pattern.search(line)
+        if search:
+            new_line = line.replace(search.group(2), "100%")
+        f_content += new_line
+    f.close()
+    f = open(filename, "w")
+    f.write(f_content)
+            
 
 
 # ------ Outils ------
