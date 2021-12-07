@@ -336,9 +336,14 @@ class Graph(IGraphe):
             )
             self.add_node(user)
         else:
+            admins = []
+            for admin_name in graph_dict[node_name]["admins"]:
+                if self.get_node_by_name(admin_name) is None:
+                    self.__create_dict_node(graph_dict, admin_name)
+                admins.append(self.get_node_by_name(admin_name))
             page = Page(
                 node_name,
-                graph_dict[node_name]["admins"]
+                admins
             )
             self.add_node(page)
 
