@@ -13,6 +13,7 @@ from classe.graph.Graphe import Graph
 def graph_to_netX(G: Graph,):
     # Initialisation du grapge orienté
     GX = nx.DiGraph()
+    pagerank = G.page_rank()
     # Ajout des noeud
     for nodes in G.get_nodes():
         if isinstance(nodes.get_node(), Utilisateur):
@@ -22,7 +23,7 @@ def graph_to_netX(G: Graph,):
                         fullname=get_fullname(nodes.get_node()),
                         title=display_attribute(nodes.get_node()),
                         age=nodes.get_node().get_age(),
-                        value=len(nodes.get_succ_list()),
+                        value=pagerank[nodes.get_node().get_name()],
                         type="Utilisateur")
         else:
             GX.add_node(nodes.get_node().get_name(),
@@ -59,7 +60,6 @@ def create_graph_html(G: Graph, name: str):
     f = open(filename, "w")
     f.write(f_content)
     f.close()
-            
 
 
 # ------ Outils ------
