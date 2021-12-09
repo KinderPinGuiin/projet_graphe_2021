@@ -10,12 +10,13 @@ from PyQt5.QtWidgets import QFileDialog, QMainWindow, QMessageBox
 import sys
 from gui.gui import Ui_MainWindow
 import re
-import os 
+import os
 
 """
 Modidication gui.py:
   class Ui_MainWindow(object): -> class Ui_MainWindow(QtWidgets.QMainWindow):
 """
+
 
 class Ui(Ui_MainWindow):
     def __init__(self):
@@ -29,7 +30,7 @@ class Ui(Ui_MainWindow):
         self.adminFrame.hide()
         self.adminList.setSortingEnabled(True)
         self.createButton.setEnabled(False)
-        
+
         # Le nom du fichier html contenant la modélisation du graphe
         self.GRAPH_FILENAME = "graph.html"
 
@@ -47,15 +48,14 @@ class Ui(Ui_MainWindow):
 
         self.show()
         self.__update_ui()
-        
-
 
     # Création du graph
+
     def __create_model(self):
         self.model = Graph()
 
-
     # Création des controleurs des éléments graphiques
+
     def __create_controler(self):
 
         # Panneau de création de Sommets
@@ -66,7 +66,7 @@ class Ui(Ui_MainWindow):
         self.userRadio.toggled.connect(self.__create_enable)
         self.createButton.clicked.connect(self.__create)
         self.adminListSearch.textChanged.connect(self.__filter_amdinlist)
-        
+
         # Tab Graphe
         self.nodesSortCombo.activated.connect(self.__display_nodesList)
 
@@ -78,17 +78,21 @@ class Ui(Ui_MainWindow):
         self.addLineButton.clicked.connect(self.__add_line)
         self.deleteLineButton.clicked.connect(self.__delete_line)
 
+        # Tab Pages
+        self.pageCombo.activated.connect(self.__page_details_setup)
+
         # Barre de menu
         self.actionCharger.triggered.connect(self.__handle_load)
         self.actionSauvegarder.triggered.connect(self.__handle_save)
 
-
     # Raffraichissement de l'interface utilisateur
+
     def __update_ui(self):
         # Actualisation de la modélisation du graphe
         create_graph_html(self.model, self.GRAPH_FILENAME)
-        self.webEngineView.setHtml(open("./" + self.GRAPH_FILENAME, 'r').read())
-        
+        self.webEngineView.setHtml(
+            open("./" + self.GRAPH_FILENAME, 'r').read())
+
         # Panneau de création de sommets
         self.nameEdit.setText('')
         self.firstnameEdit.setText('')
@@ -97,7 +101,7 @@ class Ui(Ui_MainWindow):
         # Tab Utilisateurs
         self.userNbBox.setValue(self.model.get_nb_users())
         self.avgAgeBox.setValue(self.model.get_avg_age())
-        
+
         self.userCombo.clear()
         self.userCombo.addItem("-- Sélectionner --")
         self.adminList.clear()
@@ -107,21 +111,27 @@ class Ui(Ui_MainWindow):
         self.userCombo.setCurrentText(self.nameDisplay.text())
         self.__user_details_setup()
 
-
-
         # Tab Graphe
-        self.nodeNbBox.setValue(self.model.get_nb_pages() + self.model.get_nb_users())
+        self.nodeNbBox.setValue(
+            self.model.get_nb_pages() + self.model.get_nb_users())
         self.__display_nodesList()
 
         self.lineNbBox.setValue(self.model.nb_lines())
         self.__display_linesList()
-        
 
+        # Tab Page
+        self.pageNbBox.setValue(self.model.get_nb_pages())
+        self.pageCombo.clear()
+        self.pageCombo.addItem("-- Sélectionner --")
+        for item in self.model.get_page_dict().keys():
+            self.pageCombo.addItem(item)
+        self.__page_details_setup()
     # Slot: activation bouton de création de sommet
+
     def __create_enable(self):
-        b = bool(self.nameEdit.text() and
-                 ((self.userRadio.isChecked() and self.firstnameEdit.text()) or
-                  (self.pageRadio.isChecked() and len(self.adminList.selectedItems()) > 0 )))
+        b = bool(self.nameEdit.text()
+                 and ((self.userRadio.isChecked() and self.firstnameEdit.text()) or
+                      (self.pageRadio.isChecked() and len(self.adminList.selectedItems()) > 0)))
         self.createButton.setEnabled(b)
 
     # Slot: Paramétrage du bloc de détails sur un Utilisateur
@@ -155,28 +165,44 @@ class Ui(Ui_MainWindow):
             for item in self.model.get_nodes():
                 node2 = item.get_node()
                 if node2.get_name() != node1.get_node().get_name() and \
-                    not node2 in node1.get_succ_list():
+                        not node2 in node1.get_succ_list():
                     self.nodeCombo.addItem(node2.get_name())
-            
+
             self.deleteLineCombo.clear()
             self.deleteLineCombo.addItem("-- Sélectionner --")
             for item in node1.get_succ_list():
                 self.deleteLineCombo.addItem(item.get_name())
 
+    # Slot: Paramétrage du bloc de détails sur une Page
+    def __page_details_setup(self):
+        self.listAdmin.clear()
+        if self.pageCombo.currentIndex() == 0:
+            self.namePageDisplay.setText("")
+        else:
+            self.namePageDisplay.setText(self.pageCombo.currentText())
+            currPage = self.model.get_node_by_name(
+                self.pageCombo.currentText())
+            self.namePageDisplay.setText(currPage.get_name())
+            self.adminList.clear()
+            for admin in currPage.get_admins():
+                self.listAdmin.addItem(admin.get_name())
+
     # Slot: activation bouton de création et suppression de liens
+
     def __line_buttons_setup(self):
-        self.deleteLineButton.setDisabled(self.deleteLineCombo.currentIndex() == 0)
+        self.deleteLineButton.setDisabled(
+            self.deleteLineCombo.currentIndex() == 0)
         self.addLineButton.setDisabled(self.nodeCombo.currentIndex() == 0)
 
-
     # Slot: filtre d'admins
+
     def __filter_amdinlist(self):
-        for i in range (self.adminList.count()):
+        for i in range(self.adminList.count()):
             item = self.adminList.item(i)
             pattern = self.adminListSearch.text()
             string = item.text()
             item.setHidden(re.match(pattern, string, re.IGNORECASE) == None)
-                
+
     # Slot: création de sommets
     def __create(self):
         self.isSync = False
@@ -184,12 +210,14 @@ class Ui(Ui_MainWindow):
 
         if self.model.get_node_by_name(self.nameEdit.text()) == None:
             if self.userRadio.isChecked():
-                node = Utilisateur(self.nameEdit.text(), self.firstnameEdit.text(), int(self.ageBox.text()))
+                node = Utilisateur(self.nameEdit.text(
+                ), self.firstnameEdit.text(), int(self.ageBox.text()))
 
                 msg = "Utilisateur créé avec succès."
 
             elif self.pageRadio.isChecked():
-                admins = [self.model.get_node_by_name(item.text()) for item in  self.adminList.selectedItems()]
+                admins = [self.model.get_node_by_name(
+                    item.text()) for item in self.adminList.selectedItems()]
                 node = Page(self.nameEdit.text(), admins)
 
                 msg = "Page créée avec succès."
@@ -203,7 +231,7 @@ class Ui(Ui_MainWindow):
             self.__update_ui()
 
         else:
-            
+
             popup.setWindowTitle("Erreur")
             popup.setText("Ce nom existe déjà.")
             popup.setStandardButtons(QMessageBox.Close)
@@ -223,7 +251,7 @@ class Ui(Ui_MainWindow):
             list = self.model.get_decreasing_name_nodes()
         elif index == 3:
             list = self.model.get_increasing_degree_nodes()
-        elif index == 4: 
+        elif index == 4:
             list = self.model.get_decreasing_degree_nodes()
 
         for i in list:
@@ -232,7 +260,7 @@ class Ui(Ui_MainWindow):
     # Slot: affichage de la liste des liens
     def __display_linesList(self):
         self.linesList.clear()
-        
+
         for i in self.model.get_lines():
             src, dst = i
             self.linesList.addItem(src + " -> " + dst)
@@ -279,9 +307,10 @@ class Ui(Ui_MainWindow):
             elif action == self.DELETE:
                 self.model.delete_line(src, dst)
                 actn = " supprimé "
-                
+
             popup.setWindowTitle("Succès")
-            popup.setText("Arc de " + src + " vers " + dst + actn + "avec succès.")
+            popup.setText("Arc de " + src + " vers "
+                          + dst + actn + "avec succès.")
             popup.setIcon(QMessageBox.Information)
         except:
             if action == self.ADD:
@@ -289,15 +318,17 @@ class Ui(Ui_MainWindow):
             elif action == self.DELETE:
                 actn = "La suppression"
             popup.setWindowTitle("Erreur")
-            popup.setText( actn + " de l'arc " + src + " vers " + dst + " a échouée.")
+            popup.setText(actn + " de l'arc " + src
+                          + " vers " + dst + " a échouée.")
             popup.setIcon(QMessageBox.Critical)
         popup.exec_()
         self.__user_details_setup()
         self.__update_ui()
-    
+
     # Slot: gestion du chargement d'un graphe
     def __handle_load(self):
-        file = QFileDialog.getOpenFileName(self, "Charger un graphe", filter="JSON (*.json)")
+        file = QFileDialog.getOpenFileName(
+            self, "Charger un graphe", filter="JSON (*.json)")
         if file[0].endswith(".json"):
             self.model.load_graph(file[0])
             self.__update_ui()
@@ -307,7 +338,7 @@ class Ui(Ui_MainWindow):
             msg.setIcon(QMessageBox.Critical)
             msg.setText("Veuillez sélectionner un fichier .json")
             msg.exec_()
-    
+
     # Slot: gestion de la sauvegarde d'un graphe
     def __handle_save(self):
         self.isSync = True
@@ -321,13 +352,14 @@ class Ui(Ui_MainWindow):
         if not self.isSync:
             popup = QMessageBox()
             popup.setWindowTitle("Attention !")
-            popup.setText("Cette action va entraîner la perte des données non sauvegardées.")
+            popup.setText(
+                "Cette action va entraîner la perte des données non sauvegardées.")
             popup.setInformativeText("Voulez-vous continuer ?")
             popup.setIcon(QMessageBox.Warning)
-            popup.setStandardButtons(QMessageBox.Save | QMessageBox.No | QMessageBox.Yes)
+            popup.setStandardButtons(
+                QMessageBox.Save | QMessageBox.No | QMessageBox.Yes)
             popup.setDefaultButton(QMessageBox.No)
 
-            
             x = popup.exec_()
             if x == QMessageBox.No:
                 e.ignore()
@@ -339,8 +371,7 @@ class Ui(Ui_MainWindow):
         else:
             os.remove(self.GRAPH_FILENAME)
             e.accept()
-        
-        
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
