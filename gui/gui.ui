@@ -519,8 +519,8 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <widget class="QWebEngineView" name="webEngineView">
-             <property name="url">
+            <widget class="QWebEngineView" name="webEngineView" native="true">
+             <property name="url" stdset="0">
               <url>
                <string>about:blank</string>
               </url>
@@ -999,7 +999,7 @@
      <x>0</x>
      <y>0</y>
      <width>1000</width>
-     <height>28</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichier">
@@ -1009,7 +1009,14 @@
     <addaction name="actionSauvegarder"/>
     <addaction name="actionCharger"/>
    </widget>
+   <widget class="QMenu" name="menuOutil">
+    <property name="title">
+     <string>Outil</string>
+    </property>
+    <addaction name="actionGraphe_al_atoire"/>
+   </widget>
    <addaction name="menuFichier"/>
+   <addaction name="menuOutil"/>
   </widget>
   <action name="actionCharger_un_graphe">
    <property name="text">
@@ -1034,6 +1041,11 @@
   <action name="actionCharger">
    <property name="text">
     <string>Charger...</string>
+   </property>
+  </action>
+  <action name="actionGraphe_al_atoire">
+   <property name="text">
+    <string>Graphe aléatoire</string>
    </property>
   </action>
  </widget>

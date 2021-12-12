@@ -6,7 +6,7 @@ from classe.graph.Graphe import Graph
 from graph_to_networkx import create_graph_html
 
 from PyQt5 import QtGui, QtWidgets, uic, QtCore
-from PyQt5.QtWidgets import QFileDialog, QMainWindow, QMessageBox
+from PyQt5.QtWidgets import QDialog, QDialogButtonBox, QFileDialog, QFormLayout, QInputDialog, QMainWindow, QMessageBox, QSpinBox
 import sys
 from gui.gui import Ui_MainWindow
 import re
@@ -84,6 +84,7 @@ class Ui(Ui_MainWindow):
         # Barre de menu
         self.actionCharger.triggered.connect(self.__handle_load)
         self.actionSauvegarder.triggered.connect(self.__handle_save)
+        self.actionGraphe_al_atoire.triggered.connect(self.__random_graph)
 
     # Raffraichissement de l'interface utilisateur
 
@@ -371,6 +372,39 @@ class Ui(Ui_MainWindow):
         else:
             os.remove(self.GRAPH_FILENAME)
             e.accept()
+
+    def __random_graph(self):
+        popup = RandomGraphInputDialog()
+        popup.setWindowTitle("Créer un Graphe Aléatoire")
+        x = popup.exec()
+        first, second = popup.getInput()
+
+        if x == QDialog.Accepted:
+            
+            self.model.random_graph(first, second)
+
+
+class RandomGraphInputDialog(QDialog):
+    def __init__(self, parent = None):
+        super().__init__(parent)
+
+        self.first = QSpinBox(self)
+        self.first.setMinimum(2)
+        self.second = QSpinBox(self)
+        self.second.setMinimum(1)
+        buttonBox = QDialogButtonBox(QDialogButtonBox.Cancel | QDialogButtonBox.Ok, self)
+        
+        layout = QFormLayout(self)
+        layout.addRow("Nombre de sommets: ", self.first)
+        layout.addRow("Nombre d'arcs", self.second)
+        layout.addWidget(buttonBox)
+
+        buttonBox.accepted.connect(self.accept)
+        buttonBox.rejected.connect(self.reject)
+
+    def getInput(self):
+        return (self.first.text(), self.second.text())
+    
 
 
 if __name__ == "__main__":
