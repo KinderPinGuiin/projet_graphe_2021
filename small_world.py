@@ -21,7 +21,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 3:
         print(
             "USAGE : python small_world.py <Nombre sommets> <Nombre arêtes>",
-            "[Prendre les noeuds seuls en compte]"
+            "[Ne pas prendre les noeuds seuls en compte]"
         )
         exit(0)
     if small_world(int(sys.argv[1]), int(sys.argv[2]), len(sys.argv) > 3):
