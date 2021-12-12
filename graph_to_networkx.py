@@ -13,6 +13,7 @@ from classe.graph.Graphe import Graph
 def graph_to_netX(G: Graph,):
     # Initialisation du grapge orienté
     GX = nx.DiGraph()
+    pagerank = G.page_rank()
     # Ajout des noeud
     for nodes in G.get_nodes():
         if isinstance(nodes.get_node(), Utilisateur):
@@ -20,14 +21,14 @@ def graph_to_netX(G: Graph,):
                         firstname=nodes.get_node().get_firstname(),
                         lastname=nodes.get_node().get_name(),
                         fullname=get_fullname(nodes.get_node()),
-                        title=display_attribute(nodes.get_node()),
+                        title=display_attribute(nodes.get_node(), pagerank),
                         age=nodes.get_node().get_age(),
-                        value=len(nodes.get_succ_list()),
+                        value=pagerank[nodes.get_node().get_name()],
                         type="Utilisateur")
         else:
             GX.add_node(nodes.get_node().get_name(),
                         name=nodes.get_node().get_name(),
-                        title=display_attribute(nodes.get_node()),
+                        title=display_attribute(nodes.get_node(), pagerank),
                         shape="box",
                         type="Page")
     # Ajout des noeuds
@@ -58,7 +59,7 @@ def create_graph_html(G: Graph, name: str):
     f.close()
     f = open(filename, "w")
     f.write(f_content)
-            
+    f.close()
 
 
 # ------ Outils ------
@@ -83,7 +84,7 @@ def get_name_admin(page: Page):
 
 
 # Renvoie les attributs d'un sommet sous format html
-def display_attribute(S: Sommet):
+def display_attribute(S: Sommet, PageRank: dict):
     if isinstance(S, Utilisateur):
         attributes = get_fullname(S)
         attributes += "</br>"
@@ -97,6 +98,9 @@ def display_attribute(S: Sommet):
         attributes += "Age : "
         attributes += str(S.get_age())
         attributes += "</br>"
+        attributes += "PageRank : "
+        attributes += str(PageRank[S.get_name()])
+        attributes += "</br>"
         return attributes
     else:
         attributes = get_fullname(S)
@@ -106,6 +110,9 @@ def display_attribute(S: Sommet):
         attributes += S.get_name()
         attributes += "</br>"
         attributes += get_name_admin(S)
+        attributes += "PageRank : "
+        attributes += str(PageRank[S.get_name()])
+        attributes += "</br>"
         return attributes
 
 
