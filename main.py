@@ -377,5 +377,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     app.setStyle('Fusion')
     app.setStyle('Macintosh')
+    app.setStyle("windowsvista")
     window = Ui()
     sys.exit(app.exec())
