@@ -1,4 +1,5 @@
 import unittest
+import os
 
 from classe.Page import Page
 from classe.Utilisateur import Utilisateur
@@ -71,6 +72,53 @@ class GraphTests(unittest.TestCase):
         )
         print("\n-----\nPost suppression arête : Ok.\n-----")
 
+    def test_save_load(self):
+        graph = self.__create_graph()
+        # Sauvegarde et recharge le graph
+        graph.save_graph("_tmp_test.json")
+        graph.load_graph("_tmp_test.json")
+        # Suppression du fichier
+        os.remove("_tmp_test.json")
+        # Lancement des tests
+        self.assertEqual(
+            graph.nb_lines(), 1, 
+            "Le graph est corrompu après sauvegarde (Nombre invalide d'arête)"
+        )
+        self.assertEqual(
+            graph.nb_nodes(), 2, 
+            "Le graph est corrompu après sauvegarde (Nombre invalide de sommet)"
+        )
+        print("\n-----\nPost sauvegarde / chargement du graph : Ok.\n-----")
+
+    def test_shortest_distance(self):
+        graph = self.__create_graph()
+        graph.add_node(Utilisateur("Test", "Test", 20))
+        # Vérifie les plus courtes distances des sommets
+        self.assertEqual(
+            graph.shortest_distance("Dupond"), {
+                "Coloriages de Jean": 1,
+                "Dupond": 0,
+                "Test": 1000000
+            },
+            "L'algorithme des distances les plus courtes ne renvoie pas le bon"
+            + " résultat"
+        )
+        print("\n-----\nPost distances les plus courtes : Ok.\n-----")
+    
+    def test_random_graph(self):
+        graph = Graph()
+        graph.random_graph(512, 463)
+        # Vérifie le nombre d'arêtes et de sommets
+        self.assertEqual(
+            graph.nb_nodes(), 512,
+            "Le graphe aléatoire ne contient pas le bon nombre de sommet"
+        )
+        self.assertEqual(
+            graph.nb_lines(), 463,
+            "Le graphe aléatoire ne contient pas le bon nombre d'arêtes"
+        )
+        print("\n-----\nPost graphe aléatoire : Ok.\n-----")
+
     # Outils
 
     def __create_graph(self) -> Graph:
@@ -79,7 +127,7 @@ class GraphTests(unittest.TestCase):
         jean = Utilisateur("Dupond", "Jean", 30)
         graph.add_node(jean)
         # Ajout d'une page
-        graph.add_node(Page("Coloriages de Jean", jean))
+        graph.add_node(Page("Coloriages de Jean", [jean]))
         # Ajout d'une liaison
         graph.add_line("Dupond", "Coloriages de Jean")
         return graph
