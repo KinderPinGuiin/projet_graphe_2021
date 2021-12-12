@@ -375,13 +375,13 @@ class Ui(Ui_MainWindow):
 
     def __random_graph(self):
         popup = RandomGraphInputDialog()
-        popup.setWindowTitle("Créer un Graphe Aléatoire")
+        popup.setWindowTitle("Créer un Graphe Aléatoire - (Beta)")
         x = popup.exec()
-        first, second = popup.getInput()
+        nodes, lines = popup.getInput()
 
         if x == QDialog.Accepted:
-            
-            self.model.random_graph(first, second)
+            self.model.random_graph(nodes, lines)
+            self.__update_ui()
 
 
 class RandomGraphInputDialog(QDialog):
@@ -390,8 +390,14 @@ class RandomGraphInputDialog(QDialog):
 
         self.first = QSpinBox(self)
         self.first.setMinimum(2)
+        self.first.setMaximum(10000)
+        self.first.valueChanged.connect(self.setSecondMax)
+
         self.second = QSpinBox(self)
         self.second.setMinimum(1)
+        
+        self.second.setMaximum(self.first.value())
+        
         buttonBox = QDialogButtonBox(QDialogButtonBox.Cancel | QDialogButtonBox.Ok, self)
         
         layout = QFormLayout(self)
@@ -402,8 +408,11 @@ class RandomGraphInputDialog(QDialog):
         buttonBox.accepted.connect(self.accept)
         buttonBox.rejected.connect(self.reject)
 
+    def setSecondMax(self):
+        self.second.setMaximum(self.first.value())
+
     def getInput(self):
-        return (self.first.text(), self.second.text())
+        return (self.first.value(), self.second.value())
     
 
 
