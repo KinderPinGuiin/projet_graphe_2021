@@ -131,7 +131,7 @@ class Graph(IGraphe):
             del self.__nodes[self.__nodes.index(cell)]
 
     def add_line(self, node1: str, node2: str) -> bool:
-        if node2 in self.__get_succ_list(node1):
+        if node2 in [node.get_name() for node in self.__get_succ_list(node1)]:
             return False
         if node1 == node2:
             return False
